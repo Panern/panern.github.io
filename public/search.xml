@@ -1,43 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>阅读笔记210128：Double Self-weighted Multi-view Clustering via Adaptive View Fusion</title>
-    <url>/2020/12/12/%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0210128%EF%BC%9ADouble%20Self-weighted%20Multi-view%20Clustering%20via%20Adaptive%20View%20Fusion/</url>
-    <content><![CDATA[<p><strong>总结：采用两步权重，即考虑了不同特征、不同视图对聚类的影响，通过权值自适应调整来聚合各种特征、不同视图，结果在3 Sources、ORL、BBC三个数据集上较AWP提升5%以上。# 总结：采用两步权重，即考虑了不同特征、不同视图对聚类的影响，通过权值自适应调整来聚合各种特征、不同视图，结果在3 Sources、ORL、BBC三个数据集上较AWP提升5%以上。</strong><br><a href="https://arxiv.org/abs/2011.10396" title="论文地址">论文地址</a><br><span id="more"></span></p>
-<h3 id="关于AWP"><a href="#关于AWP" class="headerlink" title="关于AWP"></a>关于AWP</h3><p>本文是基于AWP(Multiview Clustering via Adaptively Weighted Procrustes)(本文第18参考文献)的改进，思路就是令<em>KR</em>趋近于真是的标签<em>Y</em>,那么关于AWP:</p>
-<h4 id="Objective-function"><a href="#Objective-function" class="headerlink" title="Objective function"></a>Objective function</h4><script type="math/tex; mode=display">
-\begin{array}{ll}
-\min _{Y,\left\{R^{(i)}\right\}_{v}} & \sum_{i=1}^{v}\left\|Y-F^{(i)} R^{(i)}\right\|_{F} \\
-\text { s.t. } & Y \in \text { Ind },\left(R^{(i)}\right)^{T} R^{(i)}=I, \forall i=1 \ldots v
-\end{array}</script><h4 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm"></a>Algorithm</h4><p><img src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/04/DSMC/01.png" alt="avatar"></p>
-<h4 id="Datasets-and-Result"><a href="#Datasets-and-Result" class="headerlink" title="Datasets and Result"></a>Datasets and Result</h4><p>dataset:<br><img src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/04/DSMC/02.png" alt="avatar"><br>Result:<br>事实上，提升的ACC最大也就在1%左右。<br><img src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/04/DSMC/03.png" alt="avatar"></p>
-<h3 id="Methodology："><a href="#Methodology：" class="headerlink" title="Methodology："></a>Methodology：</h3><h4 id="Objective-function-1"><a href="#Objective-function-1" class="headerlink" title="Objective function:"></a>Objective function:</h4><script type="math/tex; mode=display">
-\begin{array}{l}
-\min \sum_{v} w_{v}\left\|\left(M^{(v)}\right)^{1 / 2} \odot U^{(v)}\right\|_{F}^{2}+\frac{\mu}{2}\left\|M^{(v)}\right\|_{F}^{2} \\
-w_{v}=\frac{1}{2\left(\left\|\left(M^{(v)}\right)^{1 / 2} \odot U^{(v)}\right\|_{F}\right)} \\
-\text { s.t. } Y \in D e f,\left(R^{(v)}\right)^{T} R^{(v)}=I, S>0 \\
-\left(M^{(v)}\right)^{T} E=E, U^{(v)}=Y-F^{(v)} R^{(v)}
-\end{array}</script><p>其中<em>Y</em>是标签矩阵，<em>M</em>是特征权值矩阵，<em>F</em>是指示矩阵,<em>R</em>是旋转矩阵。</p>
-<h4 id="Optimization"><a href="#Optimization" class="headerlink" title="Optimization:"></a>Optimization:</h4><p>采用交替更新的策略：<br>有拉格朗日方程：</p>
-<script type="math/tex; mode=display">
-J=\sum_{v}\left(w_{v}\left\|\left(M^{(v)}\right)^{1 / 2} \odot U^{(v)}\right\|_{F}^{2}+\frac{\mu}{2}\left\|M^{(v)}\right\|_{F}^{2}+\frac{\mu}{2}\left\|Y-F^{(v)} R^{(v)}-U^{(v)}+\frac{C^{(v)}}{\mu}\right\|_{F}^{2}\right)</script><p>根据拉格朗日方程可以求得多个参数的解。大部分求解求导为0就可以解决。</p>
-<h4 id="Algorithm-1"><a href="#Algorithm-1" class="headerlink" title="Algorithm:"></a>Algorithm:</h4><p>算法中的Eq.(11)等等就是参更新的解<br><img src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/04/DSMC/04.png" alt="avatar"></p>
-<h3 id="Datasets"><a href="#Datasets" class="headerlink" title="Datasets:"></a>Datasets:</h3><p>使用了3 Sources、ORL等6个数据集：<br><img src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/04/DSMC/05.png" alt="avatar"></p>
-<h3 id="Result"><a href="#Result" class="headerlink" title="Result:"></a>Result:</h3><p>重点关注ACC，可以看到在3 Sources和BBC，ORL等几个小的数据集上提升很大，在NUS等大一点的数据集上提升也就一般（很小）。<br><img src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/04/DSMC/06.png" alt="avatar"></p>
-<h3 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion:"></a>Conclusion:</h3><ol>
-<li>在大小数据集上提升差异太大，考虑是否在大数据集上不太优越（当然也可能是特征数太少导致）；</li>
-<li>确实如作者方法目的所言，在特征数更多的数据集上获得的提升更大，所以对于聚类任务，特征的筛选可能是很重要的。</li>
-</ol>
-]]></content>
-      <categories>
-        <category>聚类</category>
-        <category>多视图学习</category>
-      </categories>
-      <tags>
-        <tag>聚类</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>URL of Some Top Conferences’ papers</title>
     <url>/2021/08/29/URL%20of%20Some%20Top%20Conferences%E2%80%99%20papers/</url>
     <content><![CDATA[<p>URL of Some Top Conferences’ papers (NIPS, CVPR, AAAI, IJCAI, MM…)<br><span id="more"></span></p>
@@ -82,8 +45,45 @@ J=\sum_{v}\left(w_{v}\left\|\left(M^{(v)}\right)^{1 / 2} \odot U^{(v)}\right\|_{
         <category>CV</category>
       </categories>
       <tags>
-        <tag>聚类</tag>
         <tag>论文</tag>
+        <tag>聚类</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>阅读笔记210128：Double Self-weighted Multi-view Clustering via Adaptive View Fusion</title>
+    <url>/2020/12/12/%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0210128%EF%BC%9ADouble%20Self-weighted%20Multi-view%20Clustering%20via%20Adaptive%20View%20Fusion/</url>
+    <content><![CDATA[<p><strong>总结：采用两步权重，即考虑了不同特征、不同视图对聚类的影响，通过权值自适应调整来聚合各种特征、不同视图，结果在3 Sources、ORL、BBC三个数据集上较AWP提升5%以上。# 总结：采用两步权重，即考虑了不同特征、不同视图对聚类的影响，通过权值自适应调整来聚合各种特征、不同视图，结果在3 Sources、ORL、BBC三个数据集上较AWP提升5%以上。</strong><br><a href="https://arxiv.org/abs/2011.10396" title="论文地址">论文地址</a><br><span id="more"></span></p>
+<h3 id="关于AWP"><a href="#关于AWP" class="headerlink" title="关于AWP"></a>关于AWP</h3><p>本文是基于AWP(Multiview Clustering via Adaptively Weighted Procrustes)(本文第18参考文献)的改进，思路就是令<em>KR</em>趋近于真是的标签<em>Y</em>,那么关于AWP:</p>
+<h4 id="Objective-function"><a href="#Objective-function" class="headerlink" title="Objective function"></a>Objective function</h4><script type="math/tex; mode=display">
+\begin{array}{ll}
+\min _{Y,\left\{R^{(i)}\right\}_{v}} & \sum_{i=1}^{v}\left\|Y-F^{(i)} R^{(i)}\right\|_{F} \\
+\text { s.t. } & Y \in \text { Ind },\left(R^{(i)}\right)^{T} R^{(i)}=I, \forall i=1 \ldots v
+\end{array}</script><h4 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm"></a>Algorithm</h4><p><img src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/04/DSMC/01.png" alt="avatar"></p>
+<h4 id="Datasets-and-Result"><a href="#Datasets-and-Result" class="headerlink" title="Datasets and Result"></a>Datasets and Result</h4><p>dataset:<br><img src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/04/DSMC/02.png" alt="avatar"><br>Result:<br>事实上，提升的ACC最大也就在1%左右。<br><img src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/04/DSMC/03.png" alt="avatar"></p>
+<h3 id="Methodology："><a href="#Methodology：" class="headerlink" title="Methodology："></a>Methodology：</h3><h4 id="Objective-function-1"><a href="#Objective-function-1" class="headerlink" title="Objective function:"></a>Objective function:</h4><script type="math/tex; mode=display">
+\begin{array}{l}
+\min \sum_{v} w_{v}\left\|\left(M^{(v)}\right)^{1 / 2} \odot U^{(v)}\right\|_{F}^{2}+\frac{\mu}{2}\left\|M^{(v)}\right\|_{F}^{2} \\
+w_{v}=\frac{1}{2\left(\left\|\left(M^{(v)}\right)^{1 / 2} \odot U^{(v)}\right\|_{F}\right)} \\
+\text { s.t. } Y \in D e f,\left(R^{(v)}\right)^{T} R^{(v)}=I, S>0 \\
+\left(M^{(v)}\right)^{T} E=E, U^{(v)}=Y-F^{(v)} R^{(v)}
+\end{array}</script><p>其中<em>Y</em>是标签矩阵，<em>M</em>是特征权值矩阵，<em>F</em>是指示矩阵,<em>R</em>是旋转矩阵。</p>
+<h4 id="Optimization"><a href="#Optimization" class="headerlink" title="Optimization:"></a>Optimization:</h4><p>采用交替更新的策略：<br>有拉格朗日方程：</p>
+<script type="math/tex; mode=display">
+J=\sum_{v}\left(w_{v}\left\|\left(M^{(v)}\right)^{1 / 2} \odot U^{(v)}\right\|_{F}^{2}+\frac{\mu}{2}\left\|M^{(v)}\right\|_{F}^{2}+\frac{\mu}{2}\left\|Y-F^{(v)} R^{(v)}-U^{(v)}+\frac{C^{(v)}}{\mu}\right\|_{F}^{2}\right)</script><p>根据拉格朗日方程可以求得多个参数的解。大部分求解求导为0就可以解决。</p>
+<h4 id="Algorithm-1"><a href="#Algorithm-1" class="headerlink" title="Algorithm:"></a>Algorithm:</h4><p>算法中的Eq.(11)等等就是参更新的解<br><img src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/04/DSMC/04.png" alt="avatar"></p>
+<h3 id="Datasets"><a href="#Datasets" class="headerlink" title="Datasets:"></a>Datasets:</h3><p>使用了3 Sources、ORL等6个数据集：<br><img src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/04/DSMC/05.png" alt="avatar"></p>
+<h3 id="Result"><a href="#Result" class="headerlink" title="Result:"></a>Result:</h3><p>重点关注ACC，可以看到在3 Sources和BBC，ORL等几个小的数据集上提升很大，在NUS等大一点的数据集上提升也就一般（很小）。<br><img src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/04/DSMC/06.png" alt="avatar"></p>
+<h3 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion:"></a>Conclusion:</h3><ol>
+<li>在大小数据集上提升差异太大，考虑是否在大数据集上不太优越（当然也可能是特征数太少导致）；</li>
+<li>确实如作者方法目的所言，在特征数更多的数据集上获得的提升更大，所以对于聚类任务，特征的筛选可能是很重要的。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>聚类</category>
+        <category>多视图学习</category>
+      </categories>
+      <tags>
+        <tag>聚类</tag>
       </tags>
   </entry>
   <entry>
