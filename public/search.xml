@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>URL of Some Top Conferences’ papers</title>
-    <url>/2021/08/29/URL%20of%20Some%20Top%20Conferences%E2%80%99%20papers/</url>
+    <url>/2021/08/31/URL%20of%20Some%20Top%20Conferences%E2%80%99%20papers/</url>
     <content><![CDATA[<p>URL of Some Top Conferences’ papers (NIPS, CVPR, AAAI, IJCAI, MM…)<br><span id="more"></span></p>
 <ol>
 <li><h6 id="NIPS-1987"><a href="#NIPS-1987" class="headerlink" title="NIPS(1987-)"></a>NIPS(1987-)</h6><h6 id="Address-https-proceedings-neurips-cc-paper"><a href="#Address-https-proceedings-neurips-cc-paper" class="headerlink" title="Address = https://proceedings.neurips.cc/paper/"></a>Address = <a href="https://proceedings.neurips.cc/paper/">https://proceedings.neurips.cc/paper/</a></h6></li>
@@ -86,7 +86,7 @@ w_{v}=\frac{1}{2\left(\left\|\left(M^{(v)}\right)^{1 / 2} \odot U^{(v)}\right\|_
   </entry>
   <entry>
     <title>Pseudo-supervised Deep Subspace Clustering</title>
-    <url>/2021/06/06/PSSC/</url>
+    <url>/2021/06/16/PSSC/</url>
     <content><![CDATA[<p>本文通过结合深度子空间聚类和自监督学习方法，提出了伪监督深度子空间聚类。使用伪标签为监督，充分利用关系信息来学习判别特征。<br><span id="more"></span></p>
 <h5 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h5><p>借助于深度神经网络的强大的特征提取能力，基于自编码器的深度子空间聚类取得了令人印象深刻的表现。但是，自编码器的自我重建损失会忽略丰富的有用关系信息，并可能得到不具区分度的表示，从而不可避免地恶化聚类性能。 在不提供语义标签的情况下学习高级相似性也是一个挑战。另一个未解决的问题是由编码器和解码器之间的自表达层引起的高存储成本。为了解决这些问题，我们使用成对相似性来衡量重构损失以捕获局部结构信息而相似性是通过自表达层来学习的。伪图和伪标签可进一步利用网络训练期间获得的不确定知识，并用来监督相似性学习。通过使用联合学习和迭代训练有助于获得总体最佳解决方案。在基准数据集上进行的大量实验证明了我们方法的优越性。通过与k-最近邻算法相结合，我们进一步展示了我们的方法可以解决大规模和样本外问题。</p>
 <p>鉴于深度学习强大的特征提取能力，基于深度学习的聚类算法受到了广泛的关注，此类方法将深度学习与传统聚类方法进行融合，很好地提升了聚类性能。自动编码器（AE）是许多现有的深度聚类的常用构建模块，本质上，自动编码器利用自我重构损失来找到潜在的表示形式，从而捕获原始数据的突出特征。但是现有的自动编码器仍然存在一些缺点，其仅使用数据点本身重构，而与其他数据点无关[1，2]。换句话说，由于忽略了相邻对象之间的丰富关系信息，潜在表示的质量可能会降低。理想情况下，所有数据点在重构损失中应具有不同的重要性，以反映其区分作用。因此，将聚类和重构直接结合起来是有问题的，因为前者旨在破坏不具区分度的细节，而后者则失去了具有区分度的信息[3]。</p>
