@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+  
+  <title>Pseudo-supervised Deep Subspace Clustering - 无极</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  
+  
+
+  <link rel="shortcut icon" href="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/Icon/%E6%88%91%E7%9A%84.png" type="image/png" />
+  <meta name="description" content="本文通过结合深度子空间聚类和自监督学习方法，提出了伪监督深度子空间聚类。使用伪标签为监督，充分利用关系信息来学习判别特征。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pseudo-supervised Deep Subspace Clustering">
+<meta property="og:url" content="https://huawuque.site/2021/06/06/PSSC/index.html">
+<meta property="og:site_name" content="无极">
+<meta property="og:description" content="本文通过结合深度子空间聚类和自监督学习方法，提出了伪监督深度子空间聚类。使用伪标签为监督，充分利用关系信息来学习判别特征。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/06/PSSC/1.png">
+<meta property="og:image" content="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/06/PSSC/2.png">
+<meta property="og:image" content="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/06/PSSC/11.png">
+<meta property="og:image" content="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/06/PSSC/3.png">
+<meta property="og:image" content="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/06/PSSC/4.png">
+<meta property="og:image" content="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/06/PSSC/5.png">
+<meta property="og:image" content="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/06/PSSC/6.png">
+<meta property="og:image" content="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/06/PSSC/7.png">
+<meta property="article:published_time" content="2021-06-05T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-09-01T09:07:21.628Z">
+<meta property="article:author" content="Petter Pan">
+<meta property="article:tag" content="聚类">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/06/PSSC/1.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/theme-nexmoe/hexo-theme-nexmoe@latest/source/lib/mdui_043tiny/css/mdui.css,gh/theme-nexmoe/hexo-theme-nexmoe@latest/source/lib/iconfont/iconfont.css,gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css?v=233" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css">
+  
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2468963_b4xxjnpv0b4.css">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1630487540667">
+  <!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="mdui-drawer-body-left">
+  
+  <div id="nexmoe-background">
+    <div class="nexmoe-bg" style="background-image: url(https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/Icon/default_cover.jpeg)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+        <a href="/" title="Petter Pan" class="mdui-btn mdui-btn-icon"><img src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/Icon/logo.jpeg" alt="Petter Pan"></a>
+       </div>
+    </div>
+  </div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="Petter Pan">
+            <img src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/Icon/logo.jpeg" alt="Petter Pan" alt="Petter Pan">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>3</div>
+        <div><span>标签</span>2</div>
+        <div><span>分类</span>5</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/about.html" title="关于我">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于我
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+  
+  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+        <form id="search_form" action_e="https://www.google.com/search?q=" onsubmit="return search();">
+            <label><input id="search_value" name="q" type="search" placeholder="搜索"></label>
+        </form>
+    </div>
+</div>
+  
+  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="/about.html" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(249, 174, 8);background-color: rgba(249, 174, 8, .1);">
+            <i class="nexmoefont iconQQ"></i>
+        </a><a class="mdui-ripple" href="https://gitee.com/wu_ji666" target="_blank" mdui-tooltip="{content: 'Gitee'}" style="color: red;background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icongitee"></i>
+        </a><a class="mdui-ripple" href="https://github.com/panern/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icongithub"></i>
+        </a><a class="mdui-ripple" href="https://music.163.com/#/user/home?id=568752532" target="_blank" mdui-tooltip="{content: 'Music'}" style="color: red;background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont iconmusic"></i>
+        </a>
+    </div>
+</div>
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/CV/">CV</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/聚类/多视图学习/">多视图学习</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/机器学习/">机器学习</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/聚类/">聚类</a>
+          <span class="category-list-count">3</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/论文/">论文</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <div id="randomtagcloud" class="nexmoe-widget tagcloud nexmoe-rainbow">
+      <a href="/tags/%E8%81%9A%E7%B1%BB/" style="font-size: 20px;">聚类</a> <a href="/tags/%E8%AE%BA%E6%96%87/" style="font-size: 10px;">论文</a>
+    </div>
+    
+  </div>
+
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">最新文章</h3>
+    <div class="nexmoe-widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/08/29/URL%20of%20Some%20Top%20Conferences%E2%80%99%20papers/">URL of Some Top Conferences’ papers</a>
+          </li>
+        
+          <li>
+            <a href="/2021/06/06/PSSC/">Pseudo-supervised Deep Subspace Clustering</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/12/%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0210128%EF%BC%9ADouble%20Self-weighted%20Multi-view%20Clustering%20via%20Adaptive%20View%20Fusion/">阅读笔记210128：Double Self-weighted Multi-view Clustering via Adaptive View Fusion</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+
+    <div class="nexmoe-copyright">
+
+        &copy; 2020-2021 huawuque.site 版权所有
+   <a target="_blank" rel="noopener" href='http://www.beian.miit.gov.cn'>
+		 		<a target="_blank" rel="noopener" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=53012802000150">
+<br />
+<img src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/Icon/beian.png" style="float:left" />滇公网安备 53012802000150号</a>
+
+滇ICP备2020009330号-1</a><br>
+ &copy; 2021 Petter Pan
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/theme-nexmoe/hexo-theme-nexmoe" target="_blank">Nexmoe</a>
+        
+    </div>
+</div><!-- .nexmoe-drawer -->
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-post">
+  
+      <div class="nexmoe-post-cover" style="padding-bottom: 62.5%;"> 
+          <img data-src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/06/PSSC/1.png" data-sizes="auto" alt="Pseudo-supervised Deep Subspace Clustering" class="lazyload">
+          <h1>Pseudo-supervised Deep Subspace Clustering</h1>
+      </div>
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2021年06月06日</a>
+    <a><i class="nexmoefont icon-areachart"></i>4.1k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 18 分钟</a>
+</div>
+
+  <div class="nexmoe-post-right">
+    
+  </div>
+
+  <article>
+    <p>本文通过结合深度子空间聚类和自监督学习方法，提出了伪监督深度子空间聚类。使用伪标签为监督，充分利用关系信息来学习判别特征。<br><span id="more"></span><br>101380$\cos 2\theta = \cos^2 \theta - \sin^2 \theta = 2 \cos^2 \theta$1202<br><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.985ex" xmlns="http://www.w3.org/2000/svg" width="4.653ex" height="2.942ex" role="img" focusable="false" viewBox="0 -864.9 2056.8 1300.3" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path id="MJX-1-TEX-N-31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path><path id="MJX-1-TEX-I-1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path><path id="MJX-1-TEX-N-32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path><path id="MJX-1-TEX-N-2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mfrac"><g data-mml-node="mn" transform="translate(851.6,394) scale(0.707)"><use data-c="31" xlink:href="#MJX-1-TEX-N-31"></use></g><g data-mml-node="mrow" transform="translate(220,-377.4) scale(0.707)"><g data-mml-node="msup"><g data-mml-node="mi"><use data-c="1D465" xlink:href="#MJX-1-TEX-I-1D465"></use></g><g data-mml-node="mn" transform="translate(605,289) scale(0.707)"><use data-c="32" xlink:href="#MJX-1-TEX-N-32"></use></g></g><g data-mml-node="mo" transform="translate(1008.6,0)"><use data-c="2212" xlink:href="#MJX-1-TEX-N-2212"></use></g><g data-mml-node="mn" transform="translate(1786.6,0)"><use data-c="31" xlink:href="#MJX-1-TEX-N-31"></use></g></g><rect width="1816.8" height="60" x="120" y="220"></rect></g></g></g></svg></mjx-container></p>
+<h5 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h5><p>借助于深度神经网络的强大的特征提取能力，基于自编码器的深度子空间聚类取得了令人印象深刻的表现。但是，自编码器的自我重建损失会忽略丰富的有用关系信息，并可能得到不具区分度的表示，从而不可避免地恶化聚类性能。 在不提供语义标签的情况下学习高级相似性也是一个挑战。另一个未解决的问题是由编码器和解码器之间的自表达层引起的高存储成本。为了解决这些问题，我们使用成对相似性来衡量重构损失以捕获局部结构信息而相似性是通过自表达层来学习的。伪图和伪标签可进一步利用网络训练期间获得的不确定知识，并用来监督相似性学习。通过使用联合学习和迭代训练有助于获得总体最佳解决方案。在基准数据集上进行的大量实验证明了我们方法的优越性。通过与k-最近邻算法相结合，我们进一步展示了我们的方法可以解决大规模和样本外问题。</p>
+<p>鉴于深度学习强大的特征提取能力，基于深度学习的聚类算法受到了广泛的关注，此类方法将深度学习与传统聚类方法进行融合，很好地提升了聚类性能。自动编码器（AE）是许多现有的深度聚类的常用构建模块，本质上，自动编码器利用自我重构损失来找到潜在的表示形式，从而捕获原始数据的突出特征。但是现有的自动编码器仍然存在一些缺点，其仅使用数据点本身重构，而与其他数据点无关[1，2]。换句话说，由于忽略了相邻对象之间的丰富关系信息，潜在表示的质量可能会降低。理想情况下，所有数据点在重构损失中应具有不同的重要性，以反映其区分作用。因此，将聚类和重构直接结合起来是有问题的，因为前者旨在破坏不具区分度的细节，而后者则失去了具有区分度的信息[3]。</p>
+<p>依靠子空间聚类的最新发展，深度子空间聚类引起了研究人员的关注。深度子空间聚类（DSC）网络[4]是DNN中子空间聚类模型的最直接实现。DSC在编码器和解码器之间添加了一个自表示层，以学习相似度图。在DSC的基础上，文献[5]进一步引入对抗训练以提高绩效。[6]也考虑了DSC在多视图和多模式数据中的应用。尽管取得了上述进展，但由于缺乏具体的监督，深度聚类仍然是一项艰巨的任务。</p>
+<p>为了解决上述问题，我们提出了伪监督深度子空间聚类（PSSC），PSSC方法旨在通过提供伪标签来学习高级相似性。具体来说，我们的方法建立在自我训练的一般概念之上，其中模型经历了多次训练迭代。在每次迭代中，模型都使用来自上次迭代的预测来重新标记未标记的样本。我们在编码器模块上加了一个分类器，该分类器可以使用潜在表示和相似图构造伪标签来监督特征学习和图学习的训练。此外，为了保留局部结构并获得更多信息，我们采用加权重构损失代替了自编码器中广泛使用的自我重构损失。</p>
+<h5 id="论文信息"><a href="#论文信息" class="headerlink" title="论文信息"></a>论文信息</h5><center><font size="">伪监督深度子空间聚类</center>
+
+<center><em>吕俊成<sup>1</sup></em>, <em>康昭<sup>1</sup></em>, <em>陆啸<sup>1</sup></em>, <em>徐增林<sup>2</sup></em> </center>
+
+<center><sup>1</sup>电子科技大学,   <sup>2</sup>哈尔滨工业大学（深圳)</center>
+<center>TIP 2021</center>
+<center>原文标题：Pseudo-supervised Deep Subspace Clustering</center>
+<center>原文地址：https://ieeexplore.ieee.org/document/9440402</center>
+<center>原文代码：https://github.com/sckangz/SelfsupervisedSC</center>
+
+
+<h5 id="深度伪监督子空间聚类"><a href="#深度伪监督子空间聚类" class="headerlink" title="深度伪监督子空间聚类"></a>深度伪监督子空间聚类</h5><p>如图1所示，我们的伪监督深度子空间聚类网络分为三个部分：局部保留模块、自表达模块、伪监督模块。损失函数主要包括四个部分：带权重构损失、自表达约束、伪图损失和伪标签损失。<br><img data-fancybox="gallery" data-sizes="auto" data-src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/06/PSSC/1.png" alt="avatar" class="lazyload"></p>
+<center><font size='2'>图1. 伪监督深度子空间聚类的框架结构</center>
+
+<p>具体来说，原始数据$X$经过编码器到潜在表示$Z$, $Z$通过$ZC$来自表达，并通过解码器重构为$\widehat{X}$。而在重构损失时，局部保留模块采用带权重构损失函数而非自我重构。$Z$经过分类层得到$f_{\theta_s}(z)$。自表达模块学习到相似性图 $C$，用于带权重建，并与 $f_{\theta_s}(z)$一起生成伪监督信息用于监督整个网络的训练。</p>
+<ol>
+<li><h6 id="局部保留模块"><a href="#局部保留模块" class="headerlink" title="局部保留模块"></a>局部保留模块</h6><p>为了保留数据的局部信息，我们提出了带权重构损失函数。具体来说， $X_i$是由一组$X_j(i\neq j)$以权重$S_{ij}$来重建的，其中$S_{ij}$表示$X_i$和$X_j$的相似性。一方面，更远的样本将会对应更小的相似性，另一方面，更大的相似性可以使样本在恢复的过程中尽可能地接近，减小了离群点对模型带来的影响。公式表示为：</p>
+<script type="math/tex; mode=display">
+L_{0}=\sum_{i j} S_{i j}\left\|X_{i}-G_{\Theta_{d}}\left(F_{\Theta_{e}}\left(X_{j}\right)\right)\right\|^{2}</script><p>式（1）包含了数据点局部的结构信息，保证了样本在原始数据空间的局部结构信息能被保留到低维潜在空间。鉴于$S$是正定且对称的相似性矩阵, 上式还可转化为</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+L_{0} &=\sum S_{i j}\left\|X_{i}-\hat{X}_{j}\right\|^{2} \\
+&=\sum S_{i j}\left(\left\|X_{i}\right\|^{2}-2 X_{i}^{T} \hat{X}_{j}+\left\|\hat{X}_{j}\right\|^{2}\right) \\
+&=\sum S_{i j}\left[\left(\left\|X_{i}\right\|^{2}-2 X_{i}^{T} \hat{X}_{i}+\left\|\hat{X}_{i}\right\|^{2}\right)\right.\\
+&\left.+2\left(X_{i}^{T} \hat{X}_{i}-X_{i}^{T} \hat{X}_{j}\right)\right] \\
+&=\operatorname{Tr}\left[(X-\hat{X})^{T} D(X-\hat{X})\right]+2 \operatorname{Tr}\left(X^{T} L \hat{X}\right)
+\end{aligned}</script><p>其中, $D=Diag(\sum_{j=1}^n S_{ij})$为$S$的度矩阵，而拉普拉斯矩阵$L=D-S$。我们可以看到，相似度矩阵$S$的表现对于网络的性能至关重要。现有的研究者多使用预先固定的图结构[7]，而我们则尝试基于自我表达的性质从数据中自动学习$S$</p>
+</li>
+<li><p>自表达模块</p>
+<p>与深度子空间聚类一样，我们的自我表达模块也在编码器和解码器之间添加了一层没有偏置的完全连接层，其权重代表系数矩阵$C$,矩阵$C$可以表示数据的子空间结构，即如果第i个样本和第j个样本不在同一子空间中，则$C_{ij}=0$。为了学习适合子空间聚类的特征表示，我们的自我表达模块的损失函数为</p>
+<script type="math/tex; mode=display">
+L_{1}=\alpha\|C\|_{p}+\frac{1}{2}\|Z-Z C\|_{F}^{2} \quad \text { s.t. } \quad \operatorname{diag}(C)=0</script><p>其中第一项是$C$上的某个正则化函数，第二项使潜在空间$Z$中的重构误差最小。一旦获得了自表达系数矩阵$C$，我们令$S=\frac{1}{2}(|C|+|C|^{\top})$，建立起了重构相似图$S$与自表达系数$C$的联系。由于得到的相似性矩阵的行列所用尺度可能不同，因此我们使用对称归一化拉普拉斯算子进行尺度归一化，同时保持相似矩阵$S$的对称性。具体地说，正则化拉普拉斯矩阵$L_{n}=D^{-\frac{1}{2}}LD^{-\frac{1}{2}}$，这样就可以得到$Tr[(X-\widehat{X})^{\top}D^n(X-\widehat{X})]=|X-\widehat{X}|^2_F$。所以，我们的加权重构的损失函数最终转换如下：</p>
+<script type="math/tex; mode=display">
+L_{0}=\|X-\hat{X}\|_{F}^{2}+2 \operatorname{Tr}\left(X^{T} L_{n} \hat{X}\right)</script><p>由于的第二项包含了对$C$的约束，所以我们去掉了$L_1$的第一项</p>
+</li>
+<li><p>伪监督模块</p>
+<p>我们在编码器后面加上了一个以softmax 函数做激活函数的全连接层，将提取到的特征表示$Z$转化为$f_{\theta_s}(z)$，其中$f_{\theta_s}(z) \in \mathbb{R}^K$表示对$z_i$的特征预测， K代表聚类的数量。所以具有以下性质：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+&\sum_{t=1}^{K} f_{\theta_{s}}\left(z_{i}\right)_{t}=1, \forall i=1, \ldots, n \\
+&f_{\theta_{s}}\left(z_{i}\right)_{t} \geq 0, \forall t=1, \ldots, K
+\end{aligned}</script><p>此外， $f_{\theta_s}(z)$的分布应与我们先前学习到的相似性图$S$一致。因为$S$是在训练过程中学习的，它本质上是伪图。基于此我们提出了伪图监督损失如下：</p>
+<script type="math/tex; mode=display">
+L_{g r a p h}=\sum_{z_{i}, z_{j} \in Z} \mathcal{L}_{g}\left(f_{\theta_{s}\left(z_{i}\right)}, f_{\left.\theta_{s\left(z_{j}\right.}\right)} ; S_{i j}\right)</script><p>其中$\mathcal{L}_g$为计算距离的损失函数，其常见的表达形式包括对比暹罗网络损失和二值交叉熵等。</p>
+<p>理想情况下，我们的伪图应具有$K$个连通的组件或分区，而这$K$个分区可以自然地被视为伪标签。如此以来，伪图监督的最优解将会使预测向量变成独热形式, 该预测作为伪标签可表示为：</p>
+<script type="math/tex; mode=display">
+y_{i}=\arg \max _{k}\left[f_{\theta_{s}^{*}}\left(z_{i}\right)\right]_{k}</script><p>其中，  $[\cdot]_k$代表预测向量的第$k$个元素。可以很容易地得到，其对应的预测伪标签概率为$p_i=max[f_{\theta_{s}}(z_i)]$。</p>
+<p>然而在现实训练中，由于具有非凸性，是很难获得最优解，因此，预测向量$f_{\theta_{s}}(z_i)$也不严格具有独热形式，为了解决这个问题，我们为概率$p_i$设置了一个较大的阈值 ，以选择高可置信的伪标签进行监督：</p>
+<script type="math/tex; mode=display">
+V_{i}=\left\{\begin{array}{ll}
+1 & \text { if } p_{i} \geq \text { thres } \\
+0 & \text { otherwise. }
+\end{array}\right.</script><p>这样以来，只有具有高可置信度伪标签的样本才能参与网络训练，提高网络 训练的质量。因此，伪标签监督损失可以表述为：</p>
+<script type="math/tex; mode=display">
+L_{\text {label }}=\sum_{i=1}^{n} V_{i} * \mathcal{L}_{l}\left(f_{\theta_{s}\left(z_{i}\right)}, y_{i}\right)</script><p>其中，损失函数$\mathcal{L}_1$为交叉熵函数。</p>
+</li>
+<li><p>联合优化训练</p>
+<p>为了获得统一的框架并共同训练网络，我们将三个模块的损失函数统一，得到PSSC的最终损失函数：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+L(\Theta)=&\left\|X-\hat{X}_{\Theta}\right\|_{F}^{2}+2 \operatorname{Tr}\left(X^{T} L_{n} \hat{X}_{\Theta}\right) \\
+&+\gamma_{1}\left\|Z_{\Theta_{e}}-Z_{\Theta_{e}} C\right\|_{F}^{2}+\gamma_{2} L_{\text {graph }}+\gamma_{3} L_{\text {label }} \\
+& \text { s.t. } \operatorname{diag}(C)=0
+\end{aligned}</script><p>其中$\gamma_1,\gamma_2,\gamma_3$是权衡参数。我们选择了卷积神经网络来实现上面的网络框架，训练时使用反向传播算法。当网络框架训练完成后，我们将获得较低维表示$Z$和相似性矩阵$C$。</p>
+<h5 id="子空间实验"><a href="#子空间实验" class="headerlink" title="子空间实验"></a>子空间实验</h5><p>我们在五个图像数据集上进行了聚类实验，包括MNIST，ORL，COIL20，COIL40，Umist，统计信息如表1。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/06/PSSC/2.png" alt="avatar" class="lazyload"></p>
+</li>
+</ol>
+<center><font size='2'>表1. 五个基准图像数据集的统计信息</center>
+
+<p>我们采用了三种常用的聚类结果评价指标，包括聚类准确率（ACC）、归一化互信息（NMI)和纯度（PUR）。具体结果如表2所示，我们可以看出，在五个数据集上三个不同评测指标下，所提出的PSSC均显著超过了其他对比方法。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/06/PSSC/11.png" alt="avatar" class="lazyload"></p>
+<center><font size='2'>表2. 基准数据集上的聚类结果</center>
+
+<p>图2展示了我们的方法和DSC在MNIST上重构的图像，第一行是原始图像，第二行是我们的PSSC重构的图像，第三行是DSC。我们发现PSSC可以很好地恢复边缘，而DSC的图像却模糊了。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/06/PSSC/3.png" alt="avatar" class="lazyload"></p>
+<center><font size='2'>图2. MNIST的重构图像。从上到下：原始图像，PSSC，DSC</center>
+
+<h5 id="大规模数据集"><a href="#大规模数据集" class="headerlink" title="大规模数据集"></a>大规模数据集</h5><p>之前提到过由于自表达层的结构是$n\times n$的矩阵，导致DSC具有巨大的存储成本，这阻碍了它在大规模数据集上的应用[8]。这解释了为什么所有DSC论文都使用小型数据集。我们提出了一种缓解此问题的方法，并在大规模数据集上进行实验。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/06/PSSC/4.png" alt="avatar" class="lazyload"></p>
+<center><font size='2'>图3. 大规模数据集下伪监督深度子空间聚类网络的结构</center>
+
+<p>如图3，我们分两步进行大规模数据集实验。首先，抽取一小批次样本 为核心点，用以训练PSSC网络，如黄色框内所示，得到潜在空间表示 ，并将聚类结果作为标签 。然后，将剩余样本点 编码到潜在空间表示 ，用最近邻分类器找到与 最近的核心点 ，并为其分配标签。通过这种方法，我们的方法可以解决样本外问题，这是子空间聚类的长期挑战。</p>
+<p>我们在三个数据集上进行了实验，包括两个图像数据集：MNIST和USPS；一个文字数据集RCV1。三个数据集统计信息如表3。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/06/PSSC/5.png" alt="avatar" class="lazyload"></p>
+<center><font size='2'>表3. 大规模数据集统计信息</center>
+
+<p>实验结果在表4，可以看出，我们的方法仍然优于最近的深度聚类方法。<br><img data-fancybox="gallery" data-sizes="auto" data-src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/06/PSSC/6.png" alt="avatar" class="lazyload"></p>
+<center><font size='2'>表4. 大规模数据集上聚类结果对比</center>
+
+<p>为了展现在潜在空间下的数据分布，以USPS数据为例，我们使用 t-SNE方法来可视化对比方法所学习到的潜在空间表示。图5展示了六种方法使用t-SNE可视化后的结果。不同的颜色代表不同的数字。同一颜色的样本彼此越聚集，并且不同颜色的样本距离越远，则潜在空间的表示越好。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/06/PSSC/7.png" alt="avatar" class="lazyload"></p>
+<center><font size='2'>图4. 在 USPS 数据集上学习的潜在空间的 2D 可视化
+结论</center>
+
+<h5 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h5><p>本文通过结合深度子空间聚类和自监督学习方法，提出了伪监督深度子空间聚类。使用伪标签为监督，充分利用关系信息来学习判别特征。首次将局部信息保留、子空间自表达和自监督整合到一个统一的框架。在小规模和大规模数据集上的大量实验结果表明，所提出的方法在相似性和表示学习方面优于最新的方法。特别地，我们展示了如何解决子空间聚类所面临的大规模和样本外问题。</p>
+<h5 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h5><p>[1] S. Wang, Z. Ding, and Y. Fu, Feature selection guided auto-encoder, in Thirty-First AAAI Conference on Artificial Intelligence, 2017.</p>
+<p>[2] Z. Kang, X. Lu, J. Liang, K. Bai, and Z. Xu, Relation-guided representation learning, Neural Networks, 2020, Vol. 131, pp. 93–102.</p>
+<p>[3] N. Mrabah, N. M. Khan, R. Ksantini, and Z. Lachiri, Deep clustering with a dynamic autoencoder: From reconstruction towards centroids construction, Neural Networks, 2020, Vol. 130, pp. 206-228. </p>
+<p>[4] P. Ji, T. Zhang, H. Li, M. Salzmann, and I. Reid, Deep subspace clustering networks, in Advances in Neural Information Processing Systems, 2017, pp. 24–33.</p>
+<p>[5] P. Zhou, Y. Hou, and J. Feng, Deep adversarial subspace clustering, in Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition, 2018, pp. 1596–1604.</p>
+<p>[6] M. Abavisani and V. M. Patel, Deep multimodal subspace clustering networks, IEEE Journal of Selected Topics in Signal Processing, 2018, 12(6): 1601–1614. </p>
+<p>[7] Z. Kang, H. Pan, S. C. H. Hoi, and Z. Xu. Robust graph learning from noisy data. IEEE Transactions on Cybernetics, 2020, 50(5): 1833-1843.</p>
+<p>[8] Structured Graph Learning for Scalable Subspace Clustering: From Single-view to Multi-view. IEEE Transactions on Cybernetics, 2021.<br>转自 中国图象图形学学会CSIG 微信公众号文章：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/OJV3kpFcNVbpT6zRWYLDyQ">https://mp.weixin.qq.com/s/OJV3kpFcNVbpT6zRWYLDyQ</a></p>
+
+  </article>
+
+  
+    
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>Petter Pan<br>
+    <strong>本文链接：</strong><a href="https://huawuque.site/2021/06/06/PSSC/" title="https:&#x2F;&#x2F;huawuque.site&#x2F;2021&#x2F;06&#x2F;06&#x2F;PSSC&#x2F;" target="_blank" rel="noopener">https:&#x2F;&#x2F;huawuque.site&#x2F;2021&#x2F;06&#x2F;06&#x2F;PSSC&#x2F;</a><br>
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+
+
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+        <a class="nexmoefont icon-appstore-fill -link" href="/categories/%E8%81%9A%E7%B1%BB/">聚类</a>
+    
+    
+        <a class="nexmoefont icon-tag-fill -none-link" href="/tags/%E8%81%9A%E7%B1%BB/" rel="tag">聚类</a>
+    
+</div>
+
+  <div class="nexmoe-post-footer">
+    <section class="nexmoe-comment">
+    <!-- 畅言公共 js 代码 start -->
+<script id="cy_cmt_num" src="https://changyan.sohu.com/upload/plugins/plugins.list.count.js?clientId=cyvogbYur">
+</script>
+<!-- 畅言公共 js 代码 end -->
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="2021/06/06/PSSC/"></div>
+<script>
+(function(){
+var appid = 'cyvogbYur';
+var conf = 'prod_09464d4984482efebf569eb51ea4a116';
+var width = window.innerWidth || document.documentElement.clientWidth;
+if (width < 960) {
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })();
+</script>
+</section>
+  </div>
+</div>
+        <div class="nexmoe-post-right">
+          <div class="nexmoe-fixed">
+            <div class="nexmoe-tool">
+              <a href="#nexmoe-content" class="toc-link" aria-label="回到顶部" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/
+cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script>
+	hljs.initHighlightingOnLoad();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
+ 
+
+<script src="/js/app.js?v=1630487540670"></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
+<script>
+	$(".justified-gallery").justifiedGallery({
+		rowHeight: 160,
+		margins: 10,
+	});
+</script>
+
+  
+
+
+
+
+
+    <!-- baidu Analytics -->
+<script>
+    var _hmt = _hmt || [];
+    (function() {var hm = document.createElement('script');
+    hm.src = 'https://hm.baidu.com/hm.js?cb8c3bd9ba0ec8012823be9dc0f565f2';
+    var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!--<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</body>
+
+</html>

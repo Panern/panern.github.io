@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+  
+  <title>阅读笔记210128：Double Self-weighted Multi-view Clustering via Adaptive View Fusion - 无极</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  
+  
+
+  <link rel="shortcut icon" href="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/Icon/%E6%88%91%E7%9A%84.png" type="image/png" />
+  <meta name="description" content="总结：采用两步权重，即考虑了不同特征、不同视图对聚类的影响，通过权值自适应调整来聚合各种特征、不同视图，结果在3 Sources、ORL、BBC三个数据集上较AWP提升5%以上。# 总结：采用两步权重，即考虑了不同特征、不同视图对聚类的影响，通过权值自适应调整来聚合各种特征、不同视图，结果在3 Sources、ORL、BBC三个数据集上较AWP提升5%以上。论文地址">
+<meta property="og:type" content="article">
+<meta property="og:title" content="阅读笔记210128：Double Self-weighted Multi-view Clustering via Adaptive View Fusion">
+<meta property="og:url" content="https://huawuque.site/2020/12/12/%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0210128%EF%BC%9ADouble%20Self-weighted%20Multi-view%20Clustering%20via%20Adaptive%20View%20Fusion/index.html">
+<meta property="og:site_name" content="无极">
+<meta property="og:description" content="总结：采用两步权重，即考虑了不同特征、不同视图对聚类的影响，通过权值自适应调整来聚合各种特征、不同视图，结果在3 Sources、ORL、BBC三个数据集上较AWP提升5%以上。# 总结：采用两步权重，即考虑了不同特征、不同视图对聚类的影响，通过权值自适应调整来聚合各种特征、不同视图，结果在3 Sources、ORL、BBC三个数据集上较AWP提升5%以上。论文地址">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/04/DSMC/01.png">
+<meta property="og:image" content="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/04/DSMC/02.png">
+<meta property="og:image" content="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/04/DSMC/03.png">
+<meta property="og:image" content="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/04/DSMC/04.png">
+<meta property="og:image" content="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/04/DSMC/05.png">
+<meta property="og:image" content="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/04/DSMC/06.png">
+<meta property="article:published_time" content="2020-12-11T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-09-01T08:29:17.855Z">
+<meta property="article:author" content="Petter Pan">
+<meta property="article:tag" content="聚类">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/04/DSMC/01.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/theme-nexmoe/hexo-theme-nexmoe@latest/source/lib/mdui_043tiny/css/mdui.css,gh/theme-nexmoe/hexo-theme-nexmoe@latest/source/lib/iconfont/iconfont.css,gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css?v=233" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css">
+  
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2468963_b4xxjnpv0b4.css">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1630487540674">
+  <!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="mdui-drawer-body-left">
+  
+  <div id="nexmoe-background">
+    <div class="nexmoe-bg" style="background-image: url(https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/Icon/default_cover.jpeg)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+        <a href="/" title="Petter Pan" class="mdui-btn mdui-btn-icon"><img src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/Icon/logo.jpeg" alt="Petter Pan"></a>
+       </div>
+    </div>
+  </div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="Petter Pan">
+            <img src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/Icon/logo.jpeg" alt="Petter Pan" alt="Petter Pan">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>3</div>
+        <div><span>标签</span>2</div>
+        <div><span>分类</span>5</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/about.html" title="关于我">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于我
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+  
+  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+        <form id="search_form" action_e="https://www.google.com/search?q=" onsubmit="return search();">
+            <label><input id="search_value" name="q" type="search" placeholder="搜索"></label>
+        </form>
+    </div>
+</div>
+  
+  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="/about.html" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(249, 174, 8);background-color: rgba(249, 174, 8, .1);">
+            <i class="nexmoefont iconQQ"></i>
+        </a><a class="mdui-ripple" href="https://gitee.com/wu_ji666" target="_blank" mdui-tooltip="{content: 'Gitee'}" style="color: red;background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icongitee"></i>
+        </a><a class="mdui-ripple" href="https://github.com/panern/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icongithub"></i>
+        </a><a class="mdui-ripple" href="https://music.163.com/#/user/home?id=568752532" target="_blank" mdui-tooltip="{content: 'Music'}" style="color: red;background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont iconmusic"></i>
+        </a>
+    </div>
+</div>
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/CV/">CV</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/聚类/多视图学习/">多视图学习</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/机器学习/">机器学习</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/聚类/">聚类</a>
+          <span class="category-list-count">3</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/论文/">论文</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <div id="randomtagcloud" class="nexmoe-widget tagcloud nexmoe-rainbow">
+      <a href="/tags/%E8%81%9A%E7%B1%BB/" style="font-size: 20px;">聚类</a> <a href="/tags/%E8%AE%BA%E6%96%87/" style="font-size: 10px;">论文</a>
+    </div>
+    
+  </div>
+
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">最新文章</h3>
+    <div class="nexmoe-widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/08/29/URL%20of%20Some%20Top%20Conferences%E2%80%99%20papers/">URL of Some Top Conferences’ papers</a>
+          </li>
+        
+          <li>
+            <a href="/2021/06/06/PSSC/">Pseudo-supervised Deep Subspace Clustering</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/12/%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0210128%EF%BC%9ADouble%20Self-weighted%20Multi-view%20Clustering%20via%20Adaptive%20View%20Fusion/">阅读笔记210128：Double Self-weighted Multi-view Clustering via Adaptive View Fusion</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+
+    <div class="nexmoe-copyright">
+
+        &copy; 2020-2021 huawuque.site 版权所有
+   <a target="_blank" rel="noopener" href='http://www.beian.miit.gov.cn'>
+		 		<a target="_blank" rel="noopener" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=53012802000150">
+<br />
+<img src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/Icon/beian.png" style="float:left" />滇公网安备 53012802000150号</a>
+
+滇ICP备2020009330号-1</a><br>
+ &copy; 2021 Petter Pan
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/theme-nexmoe/hexo-theme-nexmoe" target="_blank">Nexmoe</a>
+        
+    </div>
+</div><!-- .nexmoe-drawer -->
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-post">
+  
+      <div class="nexmoe-post-cover" style="padding-bottom: 62.5%;"> 
+          <img data-src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/Icon/cluster.jpeg" data-sizes="auto" alt="阅读笔记210128：Double Self-weighted Multi-view Clustering via Adaptive View Fusion" class="lazyload">
+          <h1>阅读笔记210128：Double Self-weighted Multi-view Clustering via Adaptive View Fusion</h1>
+      </div>
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2020年12月12日</a>
+    <a><i class="nexmoefont icon-areachart"></i>625 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 3 分钟</a>
+</div>
+
+  <div class="nexmoe-post-right">
+    
+  </div>
+
+  <article>
+    <p><strong>总结：采用两步权重，即考虑了不同特征、不同视图对聚类的影响，通过权值自适应调整来聚合各种特征、不同视图，结果在3 Sources、ORL、BBC三个数据集上较AWP提升5%以上。# 总结：采用两步权重，即考虑了不同特征、不同视图对聚类的影响，通过权值自适应调整来聚合各种特征、不同视图，结果在3 Sources、ORL、BBC三个数据集上较AWP提升5%以上。</strong><br><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2011.10396" title="论文地址">论文地址</a><br><span id="more"></span></p>
+<h3 id="关于AWP"><a href="#关于AWP" class="headerlink" title="关于AWP"></a>关于AWP</h3><p>本文是基于AWP(Multiview Clustering via Adaptively Weighted Procrustes)(本文第18参考文献)的改进，思路就是令<em>KR</em>趋近于真是的标签<em>Y</em>,那么关于AWP:</p>
+<h4 id="Objective-function"><a href="#Objective-function" class="headerlink" title="Objective function"></a>Objective function</h4><script type="math/tex; mode=display">
+\begin{array}{ll}
+\min _{Y,\left\{R^{(i)}\right\}_{v}} & \sum_{i=1}^{v}\left\|Y-F^{(i)} R^{(i)}\right\|_{F} \\
+\text { s.t. } & Y \in \text { Ind },\left(R^{(i)}\right)^{T} R^{(i)}=I, \forall i=1 \ldots v
+\end{array}</script><h4 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm"></a>Algorithm</h4><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/04/DSMC/01.png" alt="avatar" class="lazyload"></p>
+<h4 id="Datasets-and-Result"><a href="#Datasets-and-Result" class="headerlink" title="Datasets and Result"></a>Datasets and Result</h4><p>dataset:<br><img data-fancybox="gallery" data-sizes="auto" data-src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/04/DSMC/02.png" alt="avatar" class="lazyload"><br>Result:<br>事实上，提升的ACC最大也就在1%左右。<br><img data-fancybox="gallery" data-sizes="auto" data-src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/04/DSMC/03.png" alt="avatar" class="lazyload"></p>
+<h3 id="Methodology："><a href="#Methodology：" class="headerlink" title="Methodology："></a>Methodology：</h3><h4 id="Objective-function-1"><a href="#Objective-function-1" class="headerlink" title="Objective function:"></a>Objective function:</h4><script type="math/tex; mode=display">
+\begin{array}{l}
+\min \sum_{v} w_{v}\left\|\left(M^{(v)}\right)^{1 / 2} \odot U^{(v)}\right\|_{F}^{2}+\frac{\mu}{2}\left\|M^{(v)}\right\|_{F}^{2} \\
+w_{v}=\frac{1}{2\left(\left\|\left(M^{(v)}\right)^{1 / 2} \odot U^{(v)}\right\|_{F}\right)} \\
+\text { s.t. } Y \in D e f,\left(R^{(v)}\right)^{T} R^{(v)}=I, S>0 \\
+\left(M^{(v)}\right)^{T} E=E, U^{(v)}=Y-F^{(v)} R^{(v)}
+\end{array}</script><p>其中<em>Y</em>是标签矩阵，<em>M</em>是特征权值矩阵，<em>F</em>是指示矩阵,<em>R</em>是旋转矩阵。</p>
+<h4 id="Optimization"><a href="#Optimization" class="headerlink" title="Optimization:"></a>Optimization:</h4><p>采用交替更新的策略：<br>有拉格朗日方程：</p>
+<script type="math/tex; mode=display">
+J=\sum_{v}\left(w_{v}\left\|\left(M^{(v)}\right)^{1 / 2} \odot U^{(v)}\right\|_{F}^{2}+\frac{\mu}{2}\left\|M^{(v)}\right\|_{F}^{2}+\frac{\mu}{2}\left\|Y-F^{(v)} R^{(v)}-U^{(v)}+\frac{C^{(v)}}{\mu}\right\|_{F}^{2}\right)</script><p>根据拉格朗日方程可以求得多个参数的解。大部分求解求导为0就可以解决。</p>
+<h4 id="Algorithm-1"><a href="#Algorithm-1" class="headerlink" title="Algorithm:"></a>Algorithm:</h4><p>算法中的Eq.(11)等等就是参更新的解<br><img data-fancybox="gallery" data-sizes="auto" data-src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/04/DSMC/04.png" alt="avatar" class="lazyload"></p>
+<h3 id="Datasets"><a href="#Datasets" class="headerlink" title="Datasets:"></a>Datasets:</h3><p>使用了3 Sources、ORL等6个数据集：<br><img data-fancybox="gallery" data-sizes="auto" data-src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/04/DSMC/05.png" alt="avatar" class="lazyload"></p>
+<h3 id="Result"><a href="#Result" class="headerlink" title="Result:"></a>Result:</h3><p>重点关注ACC，可以看到在3 Sources和BBC，ORL等几个小的数据集上提升很大，在NUS等大一点的数据集上提升也就一般（很小）。<br><img data-fancybox="gallery" data-sizes="auto" data-src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/04/DSMC/06.png" alt="avatar" class="lazyload"></p>
+<h3 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion:"></a>Conclusion:</h3><ol>
+<li>在大小数据集上提升差异太大，考虑是否在大数据集上不太优越（当然也可能是特征数太少导致）；</li>
+<li>确实如作者方法目的所言，在特征数更多的数据集上获得的提升更大，所以对于聚类任务，特征的筛选可能是很重要的。</li>
+</ol>
+
+  </article>
+
+  
+    
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>Petter Pan<br>
+    <strong>本文链接：</strong><a href="https://huawuque.site/2020/12/12/%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0210128%EF%BC%9ADouble%20Self-weighted%20Multi-view%20Clustering%20via%20Adaptive%20View%20Fusion/" title="https:&#x2F;&#x2F;huawuque.site&#x2F;2020&#x2F;12&#x2F;12&#x2F;%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0210128%EF%BC%9ADouble%20Self-weighted%20Multi-view%20Clustering%20via%20Adaptive%20View%20Fusion&#x2F;" target="_blank" rel="noopener">https:&#x2F;&#x2F;huawuque.site&#x2F;2020&#x2F;12&#x2F;12&#x2F;%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0210128%EF%BC%9ADouble%20Self-weighted%20Multi-view%20Clustering%20via%20Adaptive%20View%20Fusion&#x2F;</a><br>
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+
+
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+        <a class="nexmoefont icon-appstore-fill -link" href="/categories/%E8%81%9A%E7%B1%BB/">聚类</a><a class="nexmoefont icon-appstore-fill -link" href="/categories/%E8%81%9A%E7%B1%BB/%E5%A4%9A%E8%A7%86%E5%9B%BE%E5%AD%A6%E4%B9%A0/">多视图学习</a>
+    
+    
+        <a class="nexmoefont icon-tag-fill -none-link" href="/tags/%E8%81%9A%E7%B1%BB/" rel="tag">聚类</a>
+    
+</div>
+
+  <div class="nexmoe-post-footer">
+    <section class="nexmoe-comment">
+    <!-- 畅言公共 js 代码 start -->
+<script id="cy_cmt_num" src="https://changyan.sohu.com/upload/plugins/plugins.list.count.js?clientId=cyvogbYur">
+</script>
+<!-- 畅言公共 js 代码 end -->
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="2020/12/12/阅读笔记210128：Double Self-weighted Multi-view Clustering via Adaptive View Fusion/"></div>
+<script>
+(function(){
+var appid = 'cyvogbYur';
+var conf = 'prod_09464d4984482efebf569eb51ea4a116';
+var width = window.innerWidth || document.documentElement.clientWidth;
+if (width < 960) {
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })();
+</script>
+</section>
+  </div>
+</div>
+        <div class="nexmoe-post-right">
+          <div class="nexmoe-fixed">
+            <div class="nexmoe-tool">
+              <a href="#nexmoe-content" class="toc-link" aria-label="回到顶部" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/
+cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script>
+	hljs.initHighlightingOnLoad();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
+ 
+
+<script src="/js/app.js?v=1630487540677"></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
+<script>
+	$(".justified-gallery").justifiedGallery({
+		rowHeight: 160,
+		margins: 10,
+	});
+</script>
+
+  
+
+
+
+
+
+    <!-- baidu Analytics -->
+<script>
+    var _hmt = _hmt || [];
+    (function() {var hm = document.createElement('script');
+    hm.src = 'https://hm.baidu.com/hm.js?cb8c3bd9ba0ec8012823be9dc0f565f2';
+    var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!--<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</body>
+
+</html>
