@@ -72,7 +72,7 @@
   content: "";
   width: 14px;
   height: 14px;
-  background: #ff4e6a;
+  background: LightSkyBlue;
   display: inline-block;
   vertical-align: middle;
   margin-top: -2px;
@@ -139,7 +139,7 @@ article pre::before {
 article pre:after {
   position: absolute;
   border-radius: 50%;
-  background: #ff5f56;
+  background: DeepSkyBlue;
   width: 12px;
   height: 12px;
   top: 0;
@@ -172,13 +172,13 @@ article pre code:after {
 article a {
   -webkit-transition: all 0.35s ease-out;
   transition: all 0.35s ease-out;
-  color: #ff4e6a;
+  color: LightSkyBlue;
   text-decoration: none;
   word-wrap: break-word;
 }
 article a:hover,
 article a:focus {
-  color: #ff4e6a;
+  color: LightSkyBlue;
 }
 article a:hover {
   text-decoration: underline;
@@ -273,7 +273,7 @@ article h6:before {
   display: inline-block;
   width: 1em;
   content: '#';
-  color: #ff4e6a;
+  color: LightSkyBlue;
 }
 article h1 {
   font-size: 2.5em;
@@ -297,7 +297,7 @@ article h2:after {
   transition: all 0.35s ease-out;
   content: "";
   position: absolute;
-  background: #ff4e6a;
+  background: LightSkyBlue;
   width: 1em;
   height: 5px;
   bottom: -3px;
@@ -400,7 +400,7 @@ article > ol > li::before {
   border-radius: 8px;
   line-height: 1.6rem;
   background-color: rgba(255,78,106,0.1);
-  color: #ff4e6a;
+  color: LightSkyBlue;
 }
 article li {
   line-height: 2rem;
@@ -500,7 +500,7 @@ article ul li::before {
   content: "";
   width: 14px;
   height: 14px;
-  background: #ff4e6a;
+  background: DodgerBlue;
   display: inline-block;
   vertical-align: middle;
   margin-top: -2px;
@@ -836,8 +836,8 @@ body {
 }
 #nexmoe-header .nexmoe-list .nexmoe-list-item.active {
   opacity: 0.9;
-  background: #ff4e6a;
-  box-shadow: 0 2px 12px #ff4e6a;
+  background: LightSkyBlue;
+  box-shadow: 0 2px 12px LightSkyBlue;
 }
 #nexmoe-header .nexmoe-list .nexmoe-list-item i {
   font-size: 22px;
@@ -860,7 +860,7 @@ body {
   font-weight: 400;
   padding: 24px 18px 12px;
   margin: 0;
-  color: #ff4e6a;
+  color: LightSkyBlue;
 }
 #nexmoe-header .nexmoe-widget-wrap .nexmoe-widget ul {
   list-style-type: none;
@@ -920,7 +920,7 @@ body {
   margin-bottom: 20px;
 }
 #nexmoe-header .nexmoe-copyright a {
-  color: #ff4e6a;
+  color: #f00;
 }
 @media screen and (max-width: 1024px) {
   #nexmoe-header {
@@ -956,9 +956,9 @@ body {
 }
 #nexmoe-content .nexmoe-primary .nexmoe-page-nav .current {
   color: #fff;
-  background: #ff4e6a;
+  background: LightSkyBlue;
   opacity: 0.9;
-  box-shadow: 0 2px 12px #ff4e6a;
+  box-shadow: 0 2px 12px LightSkyBlue;
 }
 #nexmoe-content .nexmoe-primary .nexmoe-page-nav > * {
   color: #999;
@@ -1151,13 +1151,13 @@ body {
   }
 }
 article .mdui-btn {
-  background-color: #ff4e6a;
+  background-color: LightSkyBlue;
   color: #fff;
   border-radius: 10px;
 }
 article .mdui-btn:focus,
 article .mdui-btn:hover {
-  background-color: #ff4e6a;
+  background-color: LightSkyBlue;
   color: #fff;
 }
 font.douyin {
