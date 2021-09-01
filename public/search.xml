@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>URL of Some Top Conferences’ papers</title>
-    <url>/2021/08/31/URL%20of%20Some%20Top%20Conferences%E2%80%99%20papers/</url>
+    <url>/2021/09/01/URL%20of%20Some%20Top%20Conferences%E2%80%99%20papers/</url>
     <content><![CDATA[<p>URL of Some Top Conferences’ papers (NIPS, CVPR, AAAI, IJCAI, MM…)<br><span id="more"></span></p>
 <ol>
 <li><h6 id="NIPS-1987"><a href="#NIPS-1987" class="headerlink" title="NIPS(1987-)"></a>NIPS(1987-)</h6><h6 id="Address-https-proceedings-neurips-cc-paper"><a href="#Address-https-proceedings-neurips-cc-paper" class="headerlink" title="Address = https://proceedings.neurips.cc/paper/"></a>Address = <a href="https://proceedings.neurips.cc/paper/">https://proceedings.neurips.cc/paper/</a></h6></li>
@@ -50,8 +50,22 @@
       </tags>
   </entry>
   <entry>
+    <title>Hello World</title>
+    <url>/2021/09/01/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
     <title>阅读笔记210128：Double Self-weighted Multi-view Clustering via Adaptive View Fusion</title>
-    <url>/2021/06/16/%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0210128%EF%BC%9ADouble%20Self-weighted%20Multi-view%20Clustering%20via%20Adaptive%20View%20Fusion/</url>
+    <url>/2021/09/01/%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0210128%EF%BC%9ADouble%20Self-weighted%20Multi-view%20Clustering%20via%20Adaptive%20View%20Fusion/</url>
     <content><![CDATA[<p><strong>总结：采用两步权重，即考虑了不同特征、不同视图对聚类的影响，通过权值自适应调整来聚合各种特征、不同视图，结果在3 Sources、ORL、BBC三个数据集上较AWP提升5%以上。# 总结：采用两步权重，即考虑了不同特征、不同视图对聚类的影响，通过权值自适应调整来聚合各种特征、不同视图，结果在3 Sources、ORL、BBC三个数据集上较AWP提升5%以上。</strong><br><a href="https://arxiv.org/abs/2011.10396" title="论文地址">论文地址</a><br><span id="more"></span></p>
 <h3 id="关于AWP"><a href="#关于AWP" class="headerlink" title="关于AWP"></a>关于AWP</h3><p>本文是基于AWP(Multiview Clustering via Adaptively Weighted Procrustes)(本文第18参考文献)的改进，思路就是令<em>KR</em>趋近于真是的标签<em>Y</em>,那么关于AWP:</p>
 <h4 id="Objective-function"><a href="#Objective-function" class="headerlink" title="Objective function"></a>Objective function</h4><script type="math/tex; mode=display">
@@ -88,7 +102,7 @@ J=\sum_{v}\left(w_{v}\left\|\left(M^{(v)}\right)^{1 / 2} \odot U^{(v)}\right\|_{
   </entry>
   <entry>
     <title>Pseudo-supervised Deep Subspace Clustering</title>
-    <url>/2021/06/16/PSSC/</url>
+    <url>/2021/09/01/PSSC/</url>
     <content><![CDATA[<p>本文通过结合深度子空间聚类和自监督学习方法，提出了伪监督深度子空间聚类。使用伪标签为监督，充分利用关系信息来学习判别特征。<br><span id="more"></span></p>
 <h5 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h5><p>借助于深度神经网络的强大的特征提取能力，基于自编码器的深度子空间聚类取得了令人印象深刻的表现。但是，自编码器的自我重建损失会忽略丰富的有用关系信息，并可能得到不具区分度的表示，从而不可避免地恶化聚类性能。 在不提供语义标签的情况下学习高级相似性也是一个挑战。另一个未解决的问题是由编码器和解码器之间的自表达层引起的高存储成本。为了解决这些问题，我们使用成对相似性来衡量重构损失以捕获局部结构信息而相似性是通过自表达层来学习的。伪图和伪标签可进一步利用网络训练期间获得的不确定知识，并用来监督相似性学习。通过使用联合学习和迭代训练有助于获得总体最佳解决方案。在基准数据集上进行的大量实验证明了我们方法的优越性。通过与k-最近邻算法相结合，我们进一步展示了我们的方法可以解决大规模和样本外问题。</p>
 <p>鉴于深度学习强大的特征提取能力，基于深度学习的聚类算法受到了广泛的关注，此类方法将深度学习与传统聚类方法进行融合，很好地提升了聚类性能。自动编码器（AE）是许多现有的深度聚类的常用构建模块，本质上，自动编码器利用自我重构损失来找到潜在的表示形式，从而捕获原始数据的突出特征。但是现有的自动编码器仍然存在一些缺点，其仅使用数据点本身重构，而与其他数据点无关[1，2]。换句话说，由于忽略了相邻对象之间的丰富关系信息，潜在表示的质量可能会降低。理想情况下，所有数据点在重构损失中应具有不同的重要性，以反映其区分作用。因此，将聚类和重构直接结合起来是有问题的，因为前者旨在破坏不具区分度的细节，而后者则失去了具有区分度的信息[3]。</p>
@@ -108,9 +122,9 @@ J=\sum_{v}\left(w_{v}\left\|\left(M^{(v)}\right)^{1 / 2} \odot U^{(v)}\right\|_{
 <h5 id="深度伪监督子空间聚类"><a href="#深度伪监督子空间聚类" class="headerlink" title="深度伪监督子空间聚类"></a>深度伪监督子空间聚类</h5><p>如图1所示，我们的伪监督深度子空间聚类网络分为三个部分：局部保留模块、自表达模块、伪监督模块。损失函数主要包括四个部分：带权重构损失、自表达约束、伪图损失和伪标签损失。<br><img src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/06/PSSC/1.png" alt="avatar"></p>
 <center><font size='2'>图1. 伪监督深度子空间聚类的框架结构</center>
 
-<p>具体来说，原始数据$X$经过编码器到潜在表示$Z$, $Z$通过$ZC$来自表达，并通过解码器重构为$\widehat{X}$。而在重构损失时，局部保留模块采用带权重构损失函数而非自我重构。$Z$经过分类层得到$f_{\theta_s}(z)$。自表达模块学习到相似性图 $C$，用于带权重建，并与 $f_{\theta_s}(z)$一起生成伪监督信息用于监督整个网络的训练。</p>
+<p>具体来说，原始数据$X$经过编码器到潜在表示$Z$, $Z$通过$ZC$来自表达，并通过解码器重构为$\widehat{X}$。而在重构损失时，局部保留模块采用带权重构损失函数而非自我重构。$Z$经过分类层得到$f<em>{\theta_s}(z)$。自表达模块学习到相似性图 $C$，用于带权重建，并与 $f</em>{\theta_s}(z)$一起生成伪监督信息用于监督整个网络的训练。</p>
 <ol>
-<li><h6 id="局部保留模块"><a href="#局部保留模块" class="headerlink" title="局部保留模块"></a>局部保留模块</h6><p>为了保留数据的局部信息，我们提出了带权重构损失函数。具体来说， $X_i$是由一组$X_j(i\neq j)$以权重$S_{ij}$来重建的，其中$S_{ij}$表示$X_i$和$X_j$的相似性。一方面，更远的样本将会对应更小的相似性，另一方面，更大的相似性可以使样本在恢复的过程中尽可能地接近，减小了离群点对模型带来的影响。公式表示为：</p>
+<li><h6 id="局部保留模块"><a href="#局部保留模块" class="headerlink" title="局部保留模块"></a>局部保留模块</h6><p>为了保留数据的局部信息，我们提出了带权重构损失函数。具体来说， $X<em>i$是由一组$X_j(i\neq j)$以权重$S</em>{ij}$来重建的，其中$S_{ij}$表示$X_i$和$X_j$的相似性。一方面，更远的样本将会对应更小的相似性，另一方面，更大的相似性可以使样本在恢复的过程中尽可能地接近，减小了离群点对模型带来的影响。公式表示为：</p>
 <script type="math/tex; mode=display">
 L_{0}=\sum_{i j} S_{i j}\left\|X_{i}-G_{\Theta_{d}}\left(F_{\Theta_{e}}\left(X_{j}\right)\right)\right\|^{2}</script><p>式（1）包含了数据点局部的结构信息，保证了样本在原始数据空间的局部结构信息能被保留到低维潜在空间。鉴于$S$是正定且对称的相似性矩阵, 上式还可转化为</p>
 <script type="math/tex; mode=display">
@@ -120,7 +134,7 @@ L_{0} &=\sum S_{i j}\left\|X_{i}-\hat{X}_{j}\right\|^{2} \\
 &=\sum S_{i j}\left[\left(\left\|X_{i}\right\|^{2}-2 X_{i}^{T} \hat{X}_{i}+\left\|\hat{X}_{i}\right\|^{2}\right)\right.\\
 &\left.+2\left(X_{i}^{T} \hat{X}_{i}-X_{i}^{T} \hat{X}_{j}\right)\right] \\
 &=\operatorname{Tr}\left[(X-\hat{X})^{T} D(X-\hat{X})\right]+2 \operatorname{Tr}\left(X^{T} L \hat{X}\right)
-\end{aligned}</script><p>其中, $D=Diag(\sum_{j=1}^n S_{ij})$为$S$的度矩阵，而拉普拉斯矩阵$L=D-S$。我们可以看到，相似度矩阵$S$的表现对于网络的性能至关重要。现有的研究者多使用预先固定的图结构[7]，而我们则尝试基于自我表达的性质从数据中自动学习$S$</p>
+\end{aligned}</script><p>其中, $D=Diag(\sum<em>{j=1}^n S</em>{ij})$为$S$的度矩阵，而拉普拉斯矩阵$L=D-S$。我们可以看到，相似度矩阵$S$的表现对于网络的性能至关重要。现有的研究者多使用预先固定的图结构[7]，而我们则尝试基于自我表达的性质从数据中自动学习$S$</p>
 </li>
 <li><p>自表达模块</p>
 <p>与深度子空间聚类一样，我们的自我表达模块也在编码器和解码器之间添加了一层没有偏置的完全连接层，其权重代表系数矩阵$C$,矩阵$C$可以表示数据的子空间结构，即如果第i个样本和第j个样本不在同一子空间中，则$C_{ij}=0$。为了学习适合子空间聚类的特征表示，我们的自我表达模块的损失函数为</p>
@@ -130,7 +144,7 @@ L_{1}=\alpha\|C\|_{p}+\frac{1}{2}\|Z-Z C\|_{F}^{2} \quad \text { s.t. } \quad \o
 L_{0}=\|X-\hat{X}\|_{F}^{2}+2 \operatorname{Tr}\left(X^{T} L_{n} \hat{X}\right)</script><p>由于的第二项包含了对$C$的约束，所以我们去掉了$L_1$的第一项</p>
 </li>
 <li><p>伪监督模块</p>
-<p>我们在编码器后面加上了一个以softmax 函数做激活函数的全连接层，将提取到的特征表示$Z$转化为$f_{\theta_s}(z)$，其中$f_{\theta_s}(z) \in \mathbb{R}^K$表示对$z_i$的特征预测， K代表聚类的数量。所以具有以下性质：</p>
+<p>我们在编码器后面加上了一个以softmax 函数做激活函数的全连接层，将提取到的特征表示$Z$转化为$f<em>{\theta_s}(z)$，其中$f</em>{\theta_s}(z) \in \mathbb{R}^K$表示对$z_i$的特征预测， K代表聚类的数量。所以具有以下性质：</p>
 <script type="math/tex; mode=display">
 \begin{aligned}
 &\sum_{t=1}^{K} f_{\theta_{s}}\left(z_{i}\right)_{t}=1, \forall i=1, \ldots, n \\
@@ -140,8 +154,8 @@ L_{0}=\|X-\hat{X}\|_{F}^{2}+2 \operatorname{Tr}\left(X^{T} L_{n} \hat{X}\right)<
 L_{g r a p h}=\sum_{z_{i}, z_{j} \in Z} \mathcal{L}_{g}\left(f_{\theta_{s}\left(z_{i}\right)}, f_{\left.\theta_{s\left(z_{j}\right.}\right)} ; S_{i j}\right)</script><p>其中$\mathcal{L}_g$为计算距离的损失函数，其常见的表达形式包括对比暹罗网络损失和二值交叉熵等。</p>
 <p>理想情况下，我们的伪图应具有$K$个连通的组件或分区，而这$K$个分区可以自然地被视为伪标签。如此以来，伪图监督的最优解将会使预测向量变成独热形式, 该预测作为伪标签可表示为：</p>
 <script type="math/tex; mode=display">
-y_{i}=\arg \max _{k}\left[f_{\theta_{s}^{*}}\left(z_{i}\right)\right]_{k}</script><p>其中，  $[\cdot]_k$代表预测向量的第$k$个元素。可以很容易地得到，其对应的预测伪标签概率为$p_i=max[f_{\theta_{s}}(z_i)]$。</p>
-<p>然而在现实训练中，由于具有非凸性，是很难获得最优解，因此，预测向量$f_{\theta_{s}}(z_i)$也不严格具有独热形式，为了解决这个问题，我们为概率$p_i$设置了一个较大的阈值 ，以选择高可置信的伪标签进行监督：</p>
+y_{i}=\arg \max _{k}\left[f_{\theta_{s}^{*}}\left(z_{i}\right)\right]_{k}</script><p>其中，  $[\cdot]<em>k$代表预测向量的第$k$个元素。可以很容易地得到，其对应的预测伪标签概率为$p_i=max[f</em>{\theta_{s}}(z_i)]$。</p>
+<p>然而在现实训练中，由于具有非凸性，是很难获得最优解，因此，预测向量$f<em>{\theta</em>{s}}(z_i)$也不严格具有独热形式，为了解决这个问题，我们为概率$p_i$设置了一个较大的阈值 ，以选择高可置信的伪标签进行监督：</p>
 <script type="math/tex; mode=display">
 V_{i}=\left\{\begin{array}{ll}
 1 & \text { if } p_{i} \geq \text { thres } \\
@@ -205,19 +219,5 @@ L(\Theta)=&\left\|X-\hat{X}_{\Theta}\right\|_{F}^{2}+2 \operatorname{Tr}\left(X^
       <tags>
         <tag>聚类</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2021/09/01/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
   </entry>
 </search>
