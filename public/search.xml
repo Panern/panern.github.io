@@ -1,6 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>阅读笔记210128：Double Self-weighted Multi-view Clustering via Adaptive View Fusion</title>
+    <url>/2020/12/12/%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0210128%EF%BC%9ADouble%20Self-weighted%20Multi-view%20Clustering%20via%20Adaptive%20View%20Fusion/</url>
+    <content><![CDATA[<p><strong>总结：采用两步权重，即考虑了不同特征、不同视图对聚类的影响，通过权值自适应调整来聚合各种特征、不同视图，结果在3 Sources、ORL、BBC三个数据集上较AWP提升5%以上。# 总结：采用两步权重，即考虑了不同特征、不同视图对聚类的影响，通过权值自适应调整来聚合各种特征、不同视图，结果在3 Sources、ORL、BBC三个数据集上较AWP提升5%以上。</strong><br><a href="https://arxiv.org/abs/2011.10396" title="论文地址">论文地址</a><br><span id="more"></span></p>
+<h3 id="关于AWP"><a href="#关于AWP" class="headerlink" title="关于AWP"></a>关于AWP</h3><p>本文是基于AWP(Multiview Clustering via Adaptively Weighted Procrustes)(本文第18参考文献)的改进，思路就是令<em>KR</em>趋近于真是的标签<em>Y</em>,那么关于AWP:</p>
+<h4 id="Objective-function"><a href="#Objective-function" class="headerlink" title="Objective function"></a>Objective function</h4><script type="math/tex; mode=display">
+\begin{array}{ll}
+\min _{Y,\left\{R^{(i)}\right\}_{v}} & \sum_{i=1}^{v}\left\|Y-F^{(i)} R^{(i)}\right\|_{F} \\
+\text { s.t. } & Y \in \text { Ind },\left(R^{(i)}\right)^{T} R^{(i)}=I, \forall i=1 \ldots v
+\end{array}</script><h4 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm"></a>Algorithm</h4><p><img src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/04/DSMC/01.png" alt="avatar"></p>
+<h4 id="Datasets-and-Result"><a href="#Datasets-and-Result" class="headerlink" title="Datasets and Result"></a>Datasets and Result</h4><p>dataset:<br><img src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/04/DSMC/02.png" alt="avatar"><br>Result:<br>事实上，提升的ACC最大也就在1%左右。<br><img src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/04/DSMC/03.png" alt="avatar"></p>
+<h3 id="Methodology："><a href="#Methodology：" class="headerlink" title="Methodology："></a>Methodology：</h3><h4 id="Objective-function-1"><a href="#Objective-function-1" class="headerlink" title="Objective function:"></a>Objective function:</h4><script type="math/tex; mode=display">
+\begin{array}{l}
+\min \sum_{v} w_{v}\left\|\left(M^{(v)}\right)^{1 / 2} \odot U^{(v)}\right\|_{F}^{2}+\frac{\mu}{2}\left\|M^{(v)}\right\|_{F}^{2} \\
+w_{v}=\frac{1}{2\left(\left\|\left(M^{(v)}\right)^{1 / 2} \odot U^{(v)}\right\|_{F}\right)} \\
+\text { s.t. } Y \in D e f,\left(R^{(v)}\right)^{T} R^{(v)}=I, S>0 \\
+\left(M^{(v)}\right)^{T} E=E, U^{(v)}=Y-F^{(v)} R^{(v)}
+\end{array}</script><p>其中<em>Y</em>是标签矩阵，<em>M</em>是特征权值矩阵，<em>F</em>是指示矩阵,<em>R</em>是旋转矩阵。</p>
+<h4 id="Optimization"><a href="#Optimization" class="headerlink" title="Optimization:"></a>Optimization:</h4><p>采用交替更新的策略：<br>有拉格朗日方程：</p>
+<script type="math/tex; mode=display">
+J=\sum_{v}\left(w_{v}\left\|\left(M^{(v)}\right)^{1 / 2} \odot U^{(v)}\right\|_{F}^{2}+\frac{\mu}{2}\left\|M^{(v)}\right\|_{F}^{2}+\frac{\mu}{2}\left\|Y-F^{(v)} R^{(v)}-U^{(v)}+\frac{C^{(v)}}{\mu}\right\|_{F}^{2}\right)</script><p>根据拉格朗日方程可以求得多个参数的解。大部分求解求导为0就可以解决。</p>
+<h4 id="Algorithm-1"><a href="#Algorithm-1" class="headerlink" title="Algorithm:"></a>Algorithm:</h4><p>算法中的Eq.(11)等等就是参更新的解<br><img src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/04/DSMC/04.png" alt="avatar"></p>
+<h3 id="Datasets"><a href="#Datasets" class="headerlink" title="Datasets:"></a>Datasets:</h3><p>使用了3 Sources、ORL等6个数据集：<br><img src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/04/DSMC/05.png" alt="avatar"></p>
+<h3 id="Result"><a href="#Result" class="headerlink" title="Result:"></a>Result:</h3><p>重点关注ACC，可以看到在3 Sources和BBC，ORL等几个小的数据集上提升很大，在NUS等大一点的数据集上提升也就一般（很小）。<br><img src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/04/DSMC/06.png" alt="avatar"></p>
+<h3 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion:"></a>Conclusion:</h3><ol>
+<li>在大小数据集上提升差异太大，考虑是否在大数据集上不太优越（当然也可能是特征数太少导致）；</li>
+<li>确实如作者方法目的所言，在特征数更多的数据集上获得的提升更大，所以对于聚类任务，特征的筛选可能是很重要的。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>聚类</category>
+        <category>多视图学习</category>
+      </categories>
+      <tags>
+        <tag>聚类</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>URL of Some Top Conferences’ papers</title>
     <url>/2021/08/29/URL%20of%20Some%20Top%20Conferences%E2%80%99%20papers/</url>
     <content><![CDATA[<p>URL of Some Top Conferences’ papers (NIPS, CVPR, AAAI, IJCAI, MM…)<br><span id="more"></span></p>
@@ -45,52 +82,15 @@
         <category>CV</category>
       </categories>
       <tags>
+        <tag>聚类</tag>
         <tag>论文</tag>
-        <tag>聚类</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>阅读笔记210128：Double Self-weighted Multi-view Clustering via Adaptive View Fusion</title>
-    <url>/2020/12/12/%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0210128%EF%BC%9ADouble%20Self-weighted%20Multi-view%20Clustering%20via%20Adaptive%20View%20Fusion/</url>
-    <content><![CDATA[<p><strong>总结：采用两步权重，即考虑了不同特征、不同视图对聚类的影响，通过权值自适应调整来聚合各种特征、不同视图，结果在3 Sources、ORL、BBC三个数据集上较AWP提升5%以上。# 总结：采用两步权重，即考虑了不同特征、不同视图对聚类的影响，通过权值自适应调整来聚合各种特征、不同视图，结果在3 Sources、ORL、BBC三个数据集上较AWP提升5%以上。</strong><br><a href="https://arxiv.org/abs/2011.10396" title="论文地址">论文地址</a><br><span id="more"></span></p>
-<h3 id="关于AWP"><a href="#关于AWP" class="headerlink" title="关于AWP"></a>关于AWP</h3><p>本文是基于AWP(Multiview Clustering via Adaptively Weighted Procrustes)(本文第18参考文献)的改进，思路就是令<em>KR</em>趋近于真是的标签<em>Y</em>,那么关于AWP:</p>
-<h4 id="Objective-function"><a href="#Objective-function" class="headerlink" title="Objective function"></a>Objective function</h4><script type="math/tex; mode=display">
-\begin{array}{ll}
-\min _{Y,\left\{R^{(i)}\right\}_{v}} & \sum_{i=1}^{v}\left\|Y-F^{(i)} R^{(i)}\right\|_{F} \\
-\text { s.t. } & Y \in \text { Ind },\left(R^{(i)}\right)^{T} R^{(i)}=I, \forall i=1 \ldots v
-\end{array}</script><h4 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm"></a>Algorithm</h4><p><img src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/04/DSMC/01.png" alt="avatar"></p>
-<h4 id="Datasets-and-Result"><a href="#Datasets-and-Result" class="headerlink" title="Datasets and Result"></a>Datasets and Result</h4><p>dataset:<br><img src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/04/DSMC/02.png" alt="avatar"><br>Result:<br>事实上，提升的ACC最大也就在1%左右。<br><img src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/04/DSMC/03.png" alt="avatar"></p>
-<h3 id="Methodology："><a href="#Methodology：" class="headerlink" title="Methodology："></a>Methodology：</h3><h4 id="Objective-function-1"><a href="#Objective-function-1" class="headerlink" title="Objective function:"></a>Objective function:</h4><script type="math/tex; mode=display">
-\begin{array}{l}
-\min \sum_{v} w_{v}\left\|\left(M^{(v)}\right)^{1 / 2} \odot U^{(v)}\right\|_{F}^{2}+\frac{\mu}{2}\left\|M^{(v)}\right\|_{F}^{2} \\
-w_{v}=\frac{1}{2\left(\left\|\left(M^{(v)}\right)^{1 / 2} \odot U^{(v)}\right\|_{F}\right)} \\
-\text { s.t. } Y \in D e f,\left(R^{(v)}\right)^{T} R^{(v)}=I, S>0 \\
-\left(M^{(v)}\right)^{T} E=E, U^{(v)}=Y-F^{(v)} R^{(v)}
-\end{array}</script><p>其中<em>Y</em>是标签矩阵，<em>M</em>是特征权值矩阵，<em>F</em>是指示矩阵,<em>R</em>是旋转矩阵。</p>
-<h4 id="Optimization"><a href="#Optimization" class="headerlink" title="Optimization:"></a>Optimization:</h4><p>采用交替更新的策略：<br>有拉格朗日方程：</p>
-<script type="math/tex; mode=display">
-J=\sum_{v}\left(w_{v}\left\|\left(M^{(v)}\right)^{1 / 2} \odot U^{(v)}\right\|_{F}^{2}+\frac{\mu}{2}\left\|M^{(v)}\right\|_{F}^{2}+\frac{\mu}{2}\left\|Y-F^{(v)} R^{(v)}-U^{(v)}+\frac{C^{(v)}}{\mu}\right\|_{F}^{2}\right)</script><p>根据拉格朗日方程可以求得多个参数的解。大部分求解求导为0就可以解决。</p>
-<h4 id="Algorithm-1"><a href="#Algorithm-1" class="headerlink" title="Algorithm:"></a>Algorithm:</h4><p>算法中的Eq.(11)等等就是参更新的解<br><img src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/04/DSMC/04.png" alt="avatar"></p>
-<h3 id="Datasets"><a href="#Datasets" class="headerlink" title="Datasets:"></a>Datasets:</h3><p>使用了3 Sources、ORL等6个数据集：<br><img src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/04/DSMC/05.png" alt="avatar"></p>
-<h3 id="Result"><a href="#Result" class="headerlink" title="Result:"></a>Result:</h3><p>重点关注ACC，可以看到在3 Sources和BBC，ORL等几个小的数据集上提升很大，在NUS等大一点的数据集上提升也就一般（很小）。<br><img src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/04/DSMC/06.png" alt="avatar"></p>
-<h3 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion:"></a>Conclusion:</h3><ol>
-<li>在大小数据集上提升差异太大，考虑是否在大数据集上不太优越（当然也可能是特征数太少导致）；</li>
-<li>确实如作者方法目的所言，在特征数更多的数据集上获得的提升更大，所以对于聚类任务，特征的筛选可能是很重要的。</li>
-</ol>
-]]></content>
-      <categories>
-        <category>聚类</category>
-        <category>多视图学习</category>
-      </categories>
-      <tags>
-        <tag>聚类</tag>
       </tags>
   </entry>
   <entry>
     <title>Pseudo-supervised Deep Subspace Clustering</title>
     <url>/2021/06/06/PSSC/</url>
-    <content><![CDATA[<p>本文通过结合深度子空间聚类和自监督学习方法，提出了伪监督深度子空间聚类。使用伪标签为监督，充分利用关系信息来学习判别特征。<br><span id="more"></span><br>1013801202</p>
-<script type="math/tex; mode=display">\sum_{i=0}^n i^2 = \frac{(n^2+n)(2n+1)}{6}</script><h5 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h5><p>借助于深度神经网络的强大的特征提取能力，基于自编码器的深度子空间聚类取得了令人印象深刻的表现。但是，自编码器的自我重建损失会忽略丰富的有用关系信息，并可能得到不具区分度的表示，从而不可避免地恶化聚类性能。 在不提供语义标签的情况下学习高级相似性也是一个挑战。另一个未解决的问题是由编码器和解码器之间的自表达层引起的高存储成本。为了解决这些问题，我们使用成对相似性来衡量重构损失以捕获局部结构信息而相似性是通过自表达层来学习的。伪图和伪标签可进一步利用网络训练期间获得的不确定知识，并用来监督相似性学习。通过使用联合学习和迭代训练有助于获得总体最佳解决方案。在基准数据集上进行的大量实验证明了我们方法的优越性。通过与k-最近邻算法相结合，我们进一步展示了我们的方法可以解决大规模和样本外问题。</p>
+    <content><![CDATA[<p>本文通过结合深度子空间聚类和自监督学习方法，提出了伪监督深度子空间聚类。使用伪标签为监督，充分利用关系信息来学习判别特征。<br><span id="more"></span><br>101380$\cos 2\theta = \cos^2 \theta - \sin^2 \theta = 2 \cos^2 \theta$1202</p>
+<h5 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h5><p>借助于深度神经网络的强大的特征提取能力，基于自编码器的深度子空间聚类取得了令人印象深刻的表现。但是，自编码器的自我重建损失会忽略丰富的有用关系信息，并可能得到不具区分度的表示，从而不可避免地恶化聚类性能。 在不提供语义标签的情况下学习高级相似性也是一个挑战。另一个未解决的问题是由编码器和解码器之间的自表达层引起的高存储成本。为了解决这些问题，我们使用成对相似性来衡量重构损失以捕获局部结构信息而相似性是通过自表达层来学习的。伪图和伪标签可进一步利用网络训练期间获得的不确定知识，并用来监督相似性学习。通过使用联合学习和迭代训练有助于获得总体最佳解决方案。在基准数据集上进行的大量实验证明了我们方法的优越性。通过与k-最近邻算法相结合，我们进一步展示了我们的方法可以解决大规模和样本外问题。</p>
 <p>鉴于深度学习强大的特征提取能力，基于深度学习的聚类算法受到了广泛的关注，此类方法将深度学习与传统聚类方法进行融合，很好地提升了聚类性能。自动编码器（AE）是许多现有的深度聚类的常用构建模块，本质上，自动编码器利用自我重构损失来找到潜在的表示形式，从而捕获原始数据的突出特征。但是现有的自动编码器仍然存在一些缺点，其仅使用数据点本身重构，而与其他数据点无关[1，2]。换句话说，由于忽略了相邻对象之间的丰富关系信息，潜在表示的质量可能会降低。理想情况下，所有数据点在重构损失中应具有不同的重要性，以反映其区分作用。因此，将聚类和重构直接结合起来是有问题的，因为前者旨在破坏不具区分度的细节，而后者则失去了具有区分度的信息[3]。</p>
 <p>依靠子空间聚类的最新发展，深度子空间聚类引起了研究人员的关注。深度子空间聚类（DSC）网络[4]是DNN中子空间聚类模型的最直接实现。DSC在编码器和解码器之间添加了一个自表示层，以学习相似度图。在DSC的基础上，文献[5]进一步引入对抗训练以提高绩效。[6]也考虑了DSC在多视图和多模式数据中的应用。尽管取得了上述进展，但由于缺乏具体的监督，深度聚类仍然是一项艰巨的任务。</p>
 <p>为了解决上述问题，我们提出了伪监督深度子空间聚类（PSSC），PSSC方法旨在通过提供伪标签来学习高级相似性。具体来说，我们的方法建立在自我训练的一般概念之上，其中模型经历了多次训练迭代。在每次迭代中，模型都使用来自上次迭代的预测来重新标记未标记的样本。我们在编码器模块上加了一个分类器，该分类器可以使用潜在表示和相似图构造伪标签来监督特征学习和图学习的训练。此外，为了保留局部结构并获得更多信息，我们采用加权重构损失代替了自编码器中广泛使用的自我重构损失。</p>
