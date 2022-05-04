@@ -11,9 +11,9 @@
   
   
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
   <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/meting@1.2.0/dist/Meting.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/meting@1.2.0/dist/Meting.min.js"></script> -->
   <link rel="shortcut icon" href="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/Icon/%E6%88%91%E7%9A%84.png" type="image/png" />
   <meta property="og:type" content="website">
 <meta property="og:title" content="无极">
@@ -27,9 +27,11 @@
   
     <link rel="stylesheet" href="//at.alicdn.com/t/font_2468963_b4xxjnpv0b4.css">
   
-  <link rel="stylesheet" href="/css/style.css?v=1651663199979">
+  <link rel="stylesheet" href="/css/style.css?v=1651670886506">
   <!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
    <meta name="baidu-site-verification" content="code-Y3hOO35nHd" />
+   <!--pjax：防止跳转页面音乐暂停-->
+  <script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.js"></script> 
 <!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
@@ -49,12 +51,15 @@
        </div>
     </div>
   </div>
-</div>
+
 
 
 
   <div id="nexmoe-header">
-      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+      <!-- <script src="./node_modules/pjax/pjax.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pjax@VERSION/pjax.js"></script> -->
+
+<div class="nexmoe-drawer mdui-drawer" id="drawer">
     <div class="nexmoe-avatar mdui-ripple">
         <a href="/" title="Petter Pan">
             <img src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/Icon/logo.jpeg" alt="Petter Pan" alt="Petter Pan">
@@ -82,24 +87,18 @@
         </a>
         
     </div>
-    
-    <!-- <script src="./node_modules/pjax/pjax.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/pjax@VERSION/pjax.js"></script>
-  
-
 
     <aside id="nexmoe-sidebar">
   
-  
-  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget-wrap">
     <div class="nexmoe-widget nexmoe-search">
         <form id="search_form" action_e="https://www.google.com/search?q=" onsubmit="return search();">
             <label><input id="search_value" name="q" type="search" placeholder="搜索"></label>
         </form>
     </div>
 </div>
-  
-  <div class="nexmoe-widget-wrap">
+    
+    <div class="nexmoe-widget-wrap">
     <div class="nexmoe-widget nexmoe-social">
         <a class="mdui-ripple" href="/about.html" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(249, 174, 8);background-color: rgba(249, 174, 8, .1);">
             <i class="nexmoefont iconQQ"></i>
@@ -112,8 +111,8 @@
         </a>
     </div>
 </div>
-  
-  
+    
+    
   <div class="nexmoe-widget-wrap">
     <h3 class="nexmoe-widget-title">文章分类</h3>
     <div class="nexmoe-widget">
@@ -167,8 +166,8 @@
   </div>
 
 
-  
-  
+    
+    
   <div class="nexmoe-widget-wrap">
     <div id="randomtagcloud" class="nexmoe-widget tagcloud nexmoe-rainbow">
       <a href="/tags/%E8%81%9A%E7%B1%BB/" style="font-size: 20px;">聚类</a> <a href="/tags/%E8%AE%BA%E6%96%87/" style="font-size: 10px;">论文</a>
@@ -176,8 +175,8 @@
     
   </div>
 
-  
-  
+    
+    
   <div class="nexmoe-widget-wrap">
     <h3 class="nexmoe-widget-title">文章归档</h3>
     <div class="nexmoe-widget">
@@ -187,8 +186,8 @@
 
 
 
-  
-  
+    
+    
   <div class="nexmoe-widget-wrap">
     <h3 class="nexmoe-widget-title">最新文章</h3>
     <div class="nexmoe-widget">
@@ -210,14 +209,23 @@
     </div>
   </div>
 
-  
+    
 </aside>
+
+
 
 <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
 <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/meting@1.2.0/dist/Meting.min.js"></script> -->
+    
 
-<!--     <div>test1</div> -->
+
+<!-- 
+  
+
+
+    
+  <div>test1</div> -->
 <!--     <div> -->
 <!--     <script type="text/javascript" id="clstr_globe" src="//clustrmaps.com/globe.js?d=uYRgEwfsDJlyWjWK5Puf0odKS2fXNRR8IC4WfMbBQyU"></script> -->
 <!--     </div> -->
@@ -246,11 +254,13 @@
     <span id="busuanzi_container_site_pv">
     本站总访问量<span id="busuanzi_value_site_pv"></span>次
     </span>
-        
+        [object Object]
     </div>
 
 </div><!-- .nexmoe-drawer -->
   </div>
+
+    
 
   <div id="nexmoe-content">
     <div class="nexmoe-primary">
@@ -327,7 +337,26 @@
     
 </section>
 
-        <div class="aplayer" 
+        <!-- <script src="./node_modules/pjax/pjax.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/pjax@VERSION/pjax.js"></script> --><!-- require APlayer -->
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+      <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    <!-- require MetingJS-->
+      <script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script> 
+      <meting-js
+      server="netease"
+      id="883695840"
+	    type="playlist" 
+	    mini="true"
+      fixed="true"
+      list-folded="true"
+      autoplay="false"
+      theme="#1da496" 
+      preload="auto"
+      mutex="true">
+    </meting-js>
+
+        <!-- <div class="aplayer" 
         data-id="387465322" 
         data-server="netease" 
         data-type="playlist" 
@@ -337,7 +366,7 @@
         data-volume="0.5" 
         data-theme="#1da496" 
         data-preload="auto" >
-      </div>
+      </div> -->
         <div class="nexmoe-post-right">
           <div class="nexmoe-fixed">
             <div class="nexmoe-tool">
@@ -375,7 +404,7 @@ cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1
 <script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
  
 
-<script src="/js/app.js?v=1651663199981"></script>
+<script src="/js/app.js?v=1651670886508"></script>
 <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
 <script>
 	$(".justified-gallery").justifiedGallery({

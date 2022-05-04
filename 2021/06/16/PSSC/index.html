@@ -11,9 +11,9 @@
   
   
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
   <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/meting@1.2.0/dist/Meting.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/meting@1.2.0/dist/Meting.min.js"></script> -->
   <link rel="shortcut icon" href="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/Icon/%E6%88%91%E7%9A%84.png" type="image/png" />
   <meta name="description" content="本文通过结合深度子空间聚类和自监督学习方法，提出了伪监督深度子空间聚类。使用伪标签为监督，充分利用关系信息来学习判别特征。">
 <meta property="og:type" content="article">
@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/06/PSSC/6.png">
 <meta property="og:image" content="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/blog_img/2021/06/PSSC/7.png">
 <meta property="article:published_time" content="2021-06-15T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-05-04T07:23:15.928Z">
+<meta property="article:modified_time" content="2022-05-04T13:14:19.059Z">
 <meta property="article:author" content="Petter Pan">
 <meta property="article:tag" content="聚类">
 <meta name="twitter:card" content="summary">
@@ -41,9 +41,11 @@
   
     <link rel="stylesheet" href="//at.alicdn.com/t/font_2468963_b4xxjnpv0b4.css">
   
-  <link rel="stylesheet" href="/css/style.css?v=1651663199881">
+  <link rel="stylesheet" href="/css/style.css?v=1651670886490">
   <!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
    <meta name="baidu-site-verification" content="code-Y3hOO35nHd" />
+   <!--pjax：防止跳转页面音乐暂停-->
+  <script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.js"></script> 
 <!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
@@ -175,12 +177,15 @@ mjx-container[display="true"] + br {
        </div>
     </div>
   </div>
-</div>
+
 
 
 
   <div id="nexmoe-header">
-      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+      <!-- <script src="./node_modules/pjax/pjax.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pjax@VERSION/pjax.js"></script> -->
+
+<div class="nexmoe-drawer mdui-drawer" id="drawer">
     <div class="nexmoe-avatar mdui-ripple">
         <a href="/" title="Petter Pan">
             <img src="https://pel-img-1301311422.cos.ap-chengdu.myqcloud.com/blog/Icon/logo.jpeg" alt="Petter Pan" alt="Petter Pan">
@@ -208,24 +213,18 @@ mjx-container[display="true"] + br {
         </a>
         
     </div>
-    
-    <!-- <script src="./node_modules/pjax/pjax.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/pjax@VERSION/pjax.js"></script>
-  
-
 
     <aside id="nexmoe-sidebar">
   
-  
-  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget-wrap">
     <div class="nexmoe-widget nexmoe-search">
         <form id="search_form" action_e="https://www.google.com/search?q=" onsubmit="return search();">
             <label><input id="search_value" name="q" type="search" placeholder="搜索"></label>
         </form>
     </div>
 </div>
-  
-  <div class="nexmoe-widget-wrap">
+    
+    <div class="nexmoe-widget-wrap">
     <div class="nexmoe-widget nexmoe-social">
         <a class="mdui-ripple" href="/about.html" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(249, 174, 8);background-color: rgba(249, 174, 8, .1);">
             <i class="nexmoefont iconQQ"></i>
@@ -238,8 +237,8 @@ mjx-container[display="true"] + br {
         </a>
     </div>
 </div>
-  
-  
+    
+    
   <div class="nexmoe-widget-wrap">
     <h3 class="nexmoe-widget-title">文章分类</h3>
     <div class="nexmoe-widget">
@@ -293,8 +292,8 @@ mjx-container[display="true"] + br {
   </div>
 
 
-  
-  
+    
+    
   <div class="nexmoe-widget-wrap">
     <div id="randomtagcloud" class="nexmoe-widget tagcloud nexmoe-rainbow">
       <a href="/tags/%E8%81%9A%E7%B1%BB/" style="font-size: 20px;">聚类</a> <a href="/tags/%E8%AE%BA%E6%96%87/" style="font-size: 10px;">论文</a>
@@ -302,8 +301,8 @@ mjx-container[display="true"] + br {
     
   </div>
 
-  
-  
+    
+    
   <div class="nexmoe-widget-wrap">
     <h3 class="nexmoe-widget-title">文章归档</h3>
     <div class="nexmoe-widget">
@@ -313,8 +312,8 @@ mjx-container[display="true"] + br {
 
 
 
-  
-  
+    
+    
   <div class="nexmoe-widget-wrap">
     <h3 class="nexmoe-widget-title">最新文章</h3>
     <div class="nexmoe-widget">
@@ -336,14 +335,23 @@ mjx-container[display="true"] + br {
     </div>
   </div>
 
-  
+    
 </aside>
+
+
 
 <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
 <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/meting@1.2.0/dist/Meting.min.js"></script> -->
+    
 
-<!--     <div>test1</div> -->
+
+<!-- 
+  
+
+
+    
+  <div>test1</div> -->
 <!--     <div> -->
 <!--     <script type="text/javascript" id="clstr_globe" src="//clustrmaps.com/globe.js?d=uYRgEwfsDJlyWjWK5Puf0odKS2fXNRR8IC4WfMbBQyU"></script> -->
 <!--     </div> -->
@@ -372,11 +380,13 @@ mjx-container[display="true"] + br {
     <span id="busuanzi_container_site_pv">
     本站总访问量<span id="busuanzi_value_site_pv"></span>次
     </span>
-        
+        [object Object]
     </div>
 
 </div><!-- .nexmoe-drawer -->
   </div>
+
+    
 
   <div id="nexmoe-content">
     <div class="nexmoe-primary">
@@ -396,6 +406,17 @@ mjx-container[display="true"] + br {
 
   <div class="nexmoe-post-right">
     
+      <div class="nexmoe-fixed">
+        <div class="nexmoe-valign">
+            <div class="nexmoe-toc">
+                
+                
+                  <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AE%BA%E6%96%87%E4%BF%A1%E6%81%AF"><span class="toc-number">2.</span> <span class="toc-text">论文信息</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B7%B1%E5%BA%A6%E4%BC%AA%E7%9B%91%E7%9D%A3%E5%AD%90%E7%A9%BA%E9%97%B4%E8%81%9A%E7%B1%BB"><span class="toc-number">3.</span> <span class="toc-text">深度伪监督子空间聚类</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%B1%80%E9%83%A8%E4%BF%9D%E7%95%99%E6%A8%A1%E5%9D%97"><span class="toc-number">3.1.</span> <span class="toc-text">局部保留模块</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AD%90%E7%A9%BA%E9%97%B4%E5%AE%9E%E9%AA%8C"><span class="toc-number">4.</span> <span class="toc-text">子空间实验</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A4%A7%E8%A7%84%E6%A8%A1%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-number">5.</span> <span class="toc-text">大规模数据集</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BB%93%E8%AE%BA"><span class="toc-number">6.</span> <span class="toc-text">结论</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-number">7.</span> <span class="toc-text">参考文献</span></a></li></ol>
+                
+            </div>
+        </div>
+      </div>
+    
   </div>
 
   <article>
@@ -404,6 +425,7 @@ mjx-container[display="true"] + br {
 <p>鉴于深度学习强大的特征提取能力，基于深度学习的聚类算法受到了广泛的关注，此类方法将深度学习与传统聚类方法进行融合，很好地提升了聚类性能。自动编码器（AE）是许多现有的深度聚类的常用构建模块，本质上，自动编码器利用自我重构损失来找到潜在的表示形式，从而捕获原始数据的突出特征。但是现有的自动编码器仍然存在一些缺点，其仅使用数据点本身重构，而与其他数据点无关[1，2]。换句话说，由于忽略了相邻对象之间的丰富关系信息，潜在表示的质量可能会降低。理想情况下，所有数据点在重构损失中应具有不同的重要性，以反映其区分作用。因此，将聚类和重构直接结合起来是有问题的，因为前者旨在破坏不具区分度的细节，而后者则失去了具有区分度的信息[3]。</p>
 <p>依靠子空间聚类的最新发展，深度子空间聚类引起了研究人员的关注。深度子空间聚类（DSC）网络[4]是DNN中子空间聚类模型的最直接实现。DSC在编码器和解码器之间添加了一个自表示层，以学习相似度图。在DSC的基础上，文献[5]进一步引入对抗训练以提高绩效。[6]也考虑了DSC在多视图和多模式数据中的应用。尽管取得了上述进展，但由于缺乏具体的监督，深度聚类仍然是一项艰巨的任务。</p>
 <p>为了解决上述问题，我们提出了伪监督深度子空间聚类（PSSC），PSSC方法旨在通过提供伪标签来学习高级相似性。具体来说，我们的方法建立在自我训练的一般概念之上，其中模型经历了多次训练迭代。在每次迭代中，模型都使用来自上次迭代的预测来重新标记未标记的样本。我们在编码器模块上加了一个分类器，该分类器可以使用潜在表示和相似图构造伪标签来监督特征学习和图学习的训练。此外，为了保留局部结构并获得更多信息，我们采用加权重构损失代替了自编码器中广泛使用的自我重构损失。</p>
+<p>[TOC]</p>
 <h5 id="论文信息"><a href="#论文信息" class="headerlink" title="论文信息"></a>论文信息</h5><center><font size="">伪监督深度子空间聚类</font></center>
 
 <center><em>吕俊成<sup>1</sup></em>, <em>康昭<sup>1</sup></em>, <em>陆啸<sup>1</sup></em>, <em>徐增林<sup>2</sup></em> </center>
@@ -553,7 +575,26 @@ window.document.write('<script id="changyan_mobile_js" charset="utf-8" src="http
 </section>
   </div>
 </div>
-        <div class="aplayer" 
+        <!-- <script src="./node_modules/pjax/pjax.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/pjax@VERSION/pjax.js"></script> --><!-- require APlayer -->
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+      <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    <!-- require MetingJS-->
+      <script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script> 
+      <meting-js
+      server="netease"
+      id="883695840"
+	    type="playlist" 
+	    mini="true"
+      fixed="true"
+      list-folded="true"
+      autoplay="false"
+      theme="#1da496" 
+      preload="auto"
+      mutex="true">
+    </meting-js>
+
+        <!-- <div class="aplayer" 
         data-id="387465322" 
         data-server="netease" 
         data-type="playlist" 
@@ -563,7 +604,7 @@ window.document.write('<script id="changyan_mobile_js" charset="utf-8" src="http
         data-volume="0.5" 
         data-theme="#1da496" 
         data-preload="auto" >
-      </div>
+      </div> -->
         <div class="nexmoe-post-right">
           <div class="nexmoe-fixed">
             <div class="nexmoe-tool">
@@ -601,7 +642,7 @@ cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1
 <script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
  
 
-<script src="/js/app.js?v=1651663199885"></script>
+<script src="/js/app.js?v=1651670886493"></script>
 <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
 <script>
 	$(".justified-gallery").justifiedGallery({

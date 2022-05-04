@@ -744,11 +744,12 @@ body {
   }
 }
 #nexmoe-header {
-  margin-left: -240px;
+  margin-left: 760px;
 }
 #nexmoe-header .mdui-drawer {
   left: unset;
   scrollbar-width: none;
+  width: 20%;
 }
 #nexmoe-header .mdui-drawer::-webkit-scrollbar {
   display: none;
@@ -932,6 +933,8 @@ body {
 }
 #nexmoe-content {
   position: relative;
+  margin-left: -60px;
+  margin-right: 200px;
 }
 #nexmoe-content .nexmoe-primary {
   box-shadow: 0 0 1rem rgba(161,177,204,0.4);
@@ -939,7 +942,7 @@ body {
   float: left;
   width: 100%;
   padding: 25px;
-  position: absolute;
+  position: relative;
   min-height: 100vh;
 }
 #nexmoe-content .nexmoe-primary .nexmoe-page-nav {
@@ -1218,12 +1221,12 @@ font.douyin {
   }
 }
 .nexmoe-post-right .nexmoe-toc {
-  margin-left: 16px;
-  width: 240px;
+  margin-left: -1020px;
+  width: 200px;
   text-align: left;
 }
 .nexmoe-post-right .nexmoe-toc a {
-  color: rgba(0,0,0,0.6);
+  color: rgba(35,135,255,0.4);
 }
 .nexmoe-post-right .nexmoe-toc ol {
   padding-left: 1em;

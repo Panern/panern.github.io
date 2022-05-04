@@ -1,9 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>URL of Some Top Conferences’ papers</title>
+    <url>/2021/08/31/URL%20of%20Some%20Top%20Conferences%E2%80%99%20papers/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>URL of Some Top Conferences’ papers (NIPS, CVPR, AAAI, IJCAI, MM…)<br><span id="more"></span></p>
+<ol>
+<li><h6 id="NIPS-1987"><a href="#NIPS-1987" class="headerlink" title="NIPS(1987-)"></a>NIPS(1987-)</h6><p><a href="https://proceedings.neurips.cc/paper/">https://proceedings.neurips.cc/paper/</a></p>
+</li>
+<li><h6 id="AAAI-1980"><a href="#AAAI-1980" class="headerlink" title="AAAI(1980-)"></a>AAAI(1980-)</h6><p><a href="https://www.aaai.org/Library/AAAI/aaai-library.php">https://www.aaai.org/Library/AAAI/aaai-library.php</a></p>
+</li>
+<li><h6 id="CVPR、ICCV、WACV、ECCV、ACCV-2013"><a href="#CVPR、ICCV、WACV、ECCV、ACCV-2013" class="headerlink" title="CVPR、ICCV、WACV、ECCV、ACCV(2013-)"></a>CVPR、ICCV、WACV、ECCV、ACCV(2013-)</h6><p><a href="https://openaccess.thecvf.com/menu">https://openaccess.thecvf.com/menu</a></p>
+</li>
+<li><h6 id="ICML、ACML、COLT-2013"><a href="#ICML、ACML、COLT-2013" class="headerlink" title="ICML、ACML、COLT(2013-)"></a>ICML、ACML、COLT(2013-)</h6><p><a href="http://proceedings.mlr.press/index.html">http://proceedings.mlr.press/index.html</a></p>
+</li>
+<li><h6 id="ICLR-2018"><a href="#ICLR-2018" class="headerlink" title="ICLR(2018-)"></a>ICLR(2018-)</h6><p><a href="https://openreview.net/group?id=ICLR.cc/{Year}/Conference">https://openreview.net/group?id=ICLR.cc/{Year}/Conference</a></p>
+</li>
+<li><h6 id="IJCAI"><a href="#IJCAI" class="headerlink" title="IJCAI"></a>IJCAI</h6><p><a href="https://www.ijcai.org/proceedings/{Year}/">https://www.ijcai.org/proceedings/{Year}/</a></p>
+</li>
+<li><h6 id="ACM-Digital-Library-MM-etc"><a href="#ACM-Digital-Library-MM-etc" class="headerlink" title="ACM Digital Library(MM, etc.)"></a>ACM Digital Library(MM, etc.)</h6><p><a href="https://dl.acm.org">https://dl.acm.org</a> .<br>If the download fails(Mostly), go to 8..</p>
+</li>
+<li><h6 id="Awesome-Tool-for-Papers"><a href="#Awesome-Tool-for-Papers" class="headerlink" title="Awesome Tool for Papers"></a>Awesome Tool for Papers</h6><ol>
+<li><p><strong>Sci-hub</strong>: <a href="https://www.sci-hub.ren/">https://www.sci-hub.ren/</a></p>
+</li>
+<li><p><strong>SPIS</strong> (&gt;=SCi-hub): <a href="http://spis.hnlat.com/">http://spis.hnlat.com/</a></p>
+</li>
+<li><p><strong>ResearchGate</strong>: <a href="https://www.researchgate.net/">https://www.researchgate.net/</a></p>
+</li>
+<li><p><strong>Google Scholar</strong>: <a href="https://scholar.google.com/">https://scholar.google.com/</a></p>
+</li>
+<li><p><strong>Arxiv:</strong> <a href="https://arxiv.org/">https://arxiv.org/</a></p>
+</li>
+<li><p><strong>DBLP:</strong> <a href="https://dblp.uni-trier.de/">https://dblp.uni-trier.de/</a></p>
+</li>
+</ol>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>聚类</category>
+        <category>论文</category>
+        <category>机器学习</category>
+        <category>CV</category>
+      </categories>
+      <tags>
+        <tag>论文</tag>
+        <tag>聚类</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>阅读笔记210128：Double Self-weighted Multi-view Clustering via Adaptive View Fusion</title>
     <url>/2021/04/06/%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0210128%EF%BC%9ADouble%20Self-weighted%20Multi-view%20Clustering%20via%20Adaptive%20View%20Fusion/</url>
-    <content><![CDATA[<p><strong>总结：采用两步权重，即考虑了不同特征、不同视图对聚类的影响，通过权值自适应调整来聚合各种特征、不同视图，结果在3 Sources、ORL、BBC三个数据集上较AWP提升5%以上。# 总结：采用两步权重，即考虑了不同特征、不同视图对聚类的影响，通过权值自适应调整来聚合各种特征、不同视图，结果在3 Sources、ORL、BBC三个数据集上较AWP提升5%以上。</strong><br><a href="https://arxiv.org/abs/2011.10396" title="论文地址">论文地址</a><br><span id="more"></span></p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><strong>总结：采用两步权重，即考虑了不同特征、不同视图对聚类的影响，通过权值自适应调整来聚合各种特征、不同视图，结果在3 Sources、ORL、BBC三个数据集上较AWP提升5%以上。# 总结：采用两步权重，即考虑了不同特征、不同视图对聚类的影响，通过权值自适应调整来聚合各种特征、不同视图，结果在3 Sources、ORL、BBC三个数据集上较AWP提升5%以上。</strong><br><a href="https://arxiv.org/abs/2011.10396" title="论文地址">论文地址</a><br><span id="more"></span></p>
 <h3 id="关于AWP"><a href="#关于AWP" class="headerlink" title="关于AWP"></a>关于AWP</h3><p>本文是基于AWP(Multiview Clustering via Adaptively Weighted Procrustes)(本文第18参考文献)的改进，思路就是令<em>KR</em>趋近于真是的标签<em>Y</em>,那么关于AWP:</p>
 <h4 id="Objective-function"><a href="#Objective-function" class="headerlink" title="Objective function"></a>Objective function</h4><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable rowspacing="0.15999999999999992em" columnalign="left left" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><msub><mo><mi>min</mi><mo>⁡</mo></mo><mrow><mi>Y</mi><mo separator="true">,</mo><msub><mrow><mo fence="true">{</mo><msup><mi>R</mi><mrow><mo stretchy="false">(</mo><mi>i</mi><mo stretchy="false">)</mo></mrow></msup><mo fence="true">}</mo></mrow><mi>v</mi></msub></mrow></msub></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>v</mi></msubsup><msub><mrow><mo fence="true">∥</mo><mi>Y</mi><mo>−</mo><msup><mi>F</mi><mrow><mo stretchy="false">(</mo><mi>i</mi><mo stretchy="false">)</mo></mrow></msup><msup><mi>R</mi><mrow><mo stretchy="false">(</mo><mi>i</mi><mo stretchy="false">)</mo></mrow></msup><mo fence="true">∥</mo></mrow><mi>F</mi></msub></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mtext> s.t. </mtext></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>Y</mi><mo>∈</mo><mi mathvariant="normal">Ind</mi><mo>⁡</mo><mo separator="true">,</mo><msup><mrow><mo fence="true">(</mo><msup><mi>R</mi><mrow><mo stretchy="false">(</mo><mi>i</mi><mo stretchy="false">)</mo></mrow></msup><mo fence="true">)</mo></mrow><mi>T</mi></msup><msup><mi>R</mi><mrow><mo stretchy="false">(</mo><mi>i</mi><mo stretchy="false">)</mo></mrow></msup><mo>=</mo><mi>I</mi><mo separator="true">,</mo><mi mathvariant="normal">∀</mi><mi>i</mi><mo>=</mo><mn>1</mn><mo>…</mo><mi>v</mi></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{array}{ll}
 \min _{Y,\left\{R^{(i)}\right\}_{v}} &amp; \sum_{i=1}^{v}\left\|Y-F^{(i)} R^{(i)}\right\|_{F} \\
@@ -38,11 +85,12 @@ w_{v}=\frac{1}{2\left(\left\|\left(M^{(v)}\right)^{1 / 2} \odot U^{(v)}\right\|_
   <entry>
     <title>Pseudo-supervised Deep Subspace Clustering</title>
     <url>/2021/06/16/PSSC/</url>
-    <content><![CDATA[<p>本文通过结合深度子空间聚类和自监督学习方法，提出了伪监督深度子空间聚类。使用伪标签为监督，充分利用关系信息来学习判别特征。<br><span id="more"></span></p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>本文通过结合深度子空间聚类和自监督学习方法，提出了伪监督深度子空间聚类。使用伪标签为监督，充分利用关系信息来学习判别特征。<br><span id="more"></span></p>
 <h5 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h5><p>借助于深度神经网络的强大的特征提取能力，基于自编码器的深度子空间聚类取得了令人印象深刻的表现。但是，自编码器的自我重建损失会忽略丰富的有用关系信息，并可能得到不具区分度的表示，从而不可避免地恶化聚类性能。 在不提供语义标签的情况下学习高级相似性也是一个挑战。另一个未解决的问题是由编码器和解码器之间的自表达层引起的高存储成本。为了解决这些问题，我们使用成对相似性来衡量重构损失以捕获局部结构信息而相似性是通过自表达层来学习的。伪图和伪标签可进一步利用网络训练期间获得的不确定知识，并用来监督相似性学习。通过使用联合学习和迭代训练有助于获得总体最佳解决方案。在基准数据集上进行的大量实验证明了我们方法的优越性。通过与k-最近邻算法相结合，我们进一步展示了我们的方法可以解决大规模和样本外问题。</p>
 <p>鉴于深度学习强大的特征提取能力，基于深度学习的聚类算法受到了广泛的关注，此类方法将深度学习与传统聚类方法进行融合，很好地提升了聚类性能。自动编码器（AE）是许多现有的深度聚类的常用构建模块，本质上，自动编码器利用自我重构损失来找到潜在的表示形式，从而捕获原始数据的突出特征。但是现有的自动编码器仍然存在一些缺点，其仅使用数据点本身重构，而与其他数据点无关[1，2]。换句话说，由于忽略了相邻对象之间的丰富关系信息，潜在表示的质量可能会降低。理想情况下，所有数据点在重构损失中应具有不同的重要性，以反映其区分作用。因此，将聚类和重构直接结合起来是有问题的，因为前者旨在破坏不具区分度的细节，而后者则失去了具有区分度的信息[3]。</p>
 <p>依靠子空间聚类的最新发展，深度子空间聚类引起了研究人员的关注。深度子空间聚类（DSC）网络[4]是DNN中子空间聚类模型的最直接实现。DSC在编码器和解码器之间添加了一个自表示层，以学习相似度图。在DSC的基础上，文献[5]进一步引入对抗训练以提高绩效。[6]也考虑了DSC在多视图和多模式数据中的应用。尽管取得了上述进展，但由于缺乏具体的监督，深度聚类仍然是一项艰巨的任务。</p>
 <p>为了解决上述问题，我们提出了伪监督深度子空间聚类（PSSC），PSSC方法旨在通过提供伪标签来学习高级相似性。具体来说，我们的方法建立在自我训练的一般概念之上，其中模型经历了多次训练迭代。在每次迭代中，模型都使用来自上次迭代的预测来重新标记未标记的样本。我们在编码器模块上加了一个分类器，该分类器可以使用潜在表示和相似图构造伪标签来监督特征学习和图学习的训练。此外，为了保留局部结构并获得更多信息，我们采用加权重构损失代替了自编码器中广泛使用的自我重构损失。</p>
+<p>[TOC]</p>
 <h5 id="论文信息"><a href="#论文信息" class="headerlink" title="论文信息"></a>论文信息</h5><center><font size="">伪监督深度子空间聚类</font></center>
 
 <center><em>吕俊成<sup>1</sup></em>, <em>康昭<sup>1</sup></em>, <em>陆啸<sup>1</sup></em>, <em>徐增林<sup>2</sup></em> </center>
@@ -153,53 +201,6 @@ L(\Theta)=&\left\|X-\hat{X}_{\Theta}\right\|_{F}^{2}+2 \operatorname{Tr}\left(X^
       </categories>
       <tags>
         <tag>聚类</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>URL of Some Top Conferences’ papers</title>
-    <url>/2021/08/31/URL%20of%20Some%20Top%20Conferences%E2%80%99%20papers/</url>
-    <content><![CDATA[<p>URL of Some Top Conferences’ papers (NIPS, CVPR, AAAI, IJCAI, MM…)<br><span id="more"></span></p>
-<ol>
-<li><h6 id="NIPS-1987"><a href="#NIPS-1987" class="headerlink" title="NIPS(1987-)"></a>NIPS(1987-)</h6><p><a href="https://proceedings.neurips.cc/paper/">https://proceedings.neurips.cc/paper/</a></p>
-</li>
-<li><h6 id="AAAI-1980"><a href="#AAAI-1980" class="headerlink" title="AAAI(1980-)"></a>AAAI(1980-)</h6><p><a href="https://www.aaai.org/Library/AAAI/aaai-library.php">https://www.aaai.org/Library/AAAI/aaai-library.php</a></p>
-</li>
-<li><h6 id="CVPR、ICCV、WACV、ECCV、ACCV-2013"><a href="#CVPR、ICCV、WACV、ECCV、ACCV-2013" class="headerlink" title="CVPR、ICCV、WACV、ECCV、ACCV(2013-)"></a>CVPR、ICCV、WACV、ECCV、ACCV(2013-)</h6><p><a href="https://openaccess.thecvf.com/menu">https://openaccess.thecvf.com/menu</a></p>
-</li>
-<li><h6 id="ICML、ACML、COLT-2013"><a href="#ICML、ACML、COLT-2013" class="headerlink" title="ICML、ACML、COLT(2013-)"></a>ICML、ACML、COLT(2013-)</h6><p><a href="http://proceedings.mlr.press/index.html">http://proceedings.mlr.press/index.html</a></p>
-</li>
-<li><h6 id="ICLR-2018"><a href="#ICLR-2018" class="headerlink" title="ICLR(2018-)"></a>ICLR(2018-)</h6><p><a href="https://openreview.net/group?id=ICLR.cc/{Year}/Conference">https://openreview.net/group?id=ICLR.cc/{Year}/Conference</a></p>
-</li>
-<li><h6 id="IJCAI"><a href="#IJCAI" class="headerlink" title="IJCAI"></a>IJCAI</h6><p><a href="https://www.ijcai.org/proceedings/{Year}/">https://www.ijcai.org/proceedings/{Year}/</a></p>
-</li>
-<li><h6 id="ACM-Digital-Library-MM-etc"><a href="#ACM-Digital-Library-MM-etc" class="headerlink" title="ACM Digital Library(MM, etc.)"></a>ACM Digital Library(MM, etc.)</h6><p><a href="https://dl.acm.org">https://dl.acm.org</a> .<br>If the download fails(Mostly), go to 8..</p>
-</li>
-<li><h6 id="Awesome-Tool-for-Papers"><a href="#Awesome-Tool-for-Papers" class="headerlink" title="Awesome Tool for Papers"></a>Awesome Tool for Papers</h6><ol>
-<li><p><strong>Sci-hub</strong>: <a href="https://www.sci-hub.ren/">https://www.sci-hub.ren/</a></p>
-</li>
-<li><p><strong>SPIS</strong> (&gt;=SCi-hub): <a href="http://spis.hnlat.com/">http://spis.hnlat.com/</a></p>
-</li>
-<li><p><strong>ResearchGate</strong>: <a href="https://www.researchgate.net/">https://www.researchgate.net/</a></p>
-</li>
-<li><p><strong>Google Scholar</strong>: <a href="https://scholar.google.com/">https://scholar.google.com/</a></p>
-</li>
-<li><p><strong>Arxiv:</strong> <a href="https://arxiv.org/">https://arxiv.org/</a></p>
-</li>
-<li><p><strong>DBLP:</strong> <a href="https://dblp.uni-trier.de/">https://dblp.uni-trier.de/</a></p>
-</li>
-</ol>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>聚类</category>
-        <category>论文</category>
-        <category>机器学习</category>
-        <category>CV</category>
-      </categories>
-      <tags>
-        <tag>聚类</tag>
-        <tag>论文</tag>
       </tags>
   </entry>
 </search>
