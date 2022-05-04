@@ -1192,7 +1192,7 @@ font.douyin {
 .nexmoe-post-right .nexmoe-tool {
   position: absolute;
   bottom: 20px;
-  left: 20px;
+  left: -900px;
 }
 .nexmoe-post-right .nexmoe-tool .mdui-fab {
   background: #fff;
