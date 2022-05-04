@@ -1,53 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>URL of Some Top Conferences’ papers</title>
-    <url>/2021/08/31/URL%20of%20Some%20Top%20Conferences%E2%80%99%20papers/</url>
-    <content><![CDATA[<p>URL of Some Top Conferences’ papers (NIPS, CVPR, AAAI, IJCAI, MM…)<br><span id="more"></span></p>
-<ol>
-<li><h6 id="NIPS-1987"><a href="#NIPS-1987" class="headerlink" title="NIPS(1987-)"></a>NIPS(1987-)</h6><p><a href="https://proceedings.neurips.cc/paper/">https://proceedings.neurips.cc/paper/</a></p>
-</li>
-<li><h6 id="AAAI-1980"><a href="#AAAI-1980" class="headerlink" title="AAAI(1980-)"></a>AAAI(1980-)</h6><p><a href="https://www.aaai.org/Library/AAAI/aaai-library.php">https://www.aaai.org/Library/AAAI/aaai-library.php</a></p>
-</li>
-<li><h6 id="CVPR、ICCV、WACV、ECCV、ACCV-2013"><a href="#CVPR、ICCV、WACV、ECCV、ACCV-2013" class="headerlink" title="CVPR、ICCV、WACV、ECCV、ACCV(2013-)"></a>CVPR、ICCV、WACV、ECCV、ACCV(2013-)</h6><p><a href="https://openaccess.thecvf.com/menu">https://openaccess.thecvf.com/menu</a></p>
-</li>
-<li><h6 id="ICML、ACML、COLT-2013"><a href="#ICML、ACML、COLT-2013" class="headerlink" title="ICML、ACML、COLT(2013-)"></a>ICML、ACML、COLT(2013-)</h6><p><a href="http://proceedings.mlr.press/index.html">http://proceedings.mlr.press/index.html</a></p>
-</li>
-<li><h6 id="ICLR-2018"><a href="#ICLR-2018" class="headerlink" title="ICLR(2018-)"></a>ICLR(2018-)</h6><p><a href="https://openreview.net/group?id=ICLR.cc/{Year}/Conference">https://openreview.net/group?id=ICLR.cc/{Year}/Conference</a></p>
-</li>
-<li><h6 id="IJCAI"><a href="#IJCAI" class="headerlink" title="IJCAI"></a>IJCAI</h6><p><a href="https://www.ijcai.org/proceedings/{Year}/">https://www.ijcai.org/proceedings/{Year}/</a></p>
-</li>
-<li><h6 id="ACM-Digital-Library-MM-etc"><a href="#ACM-Digital-Library-MM-etc" class="headerlink" title="ACM Digital Library(MM, etc.)"></a>ACM Digital Library(MM, etc.)</h6><p><a href="https://dl.acm.org">https://dl.acm.org</a> .<br>If the download fails(Mostly), go to 8..</p>
-</li>
-<li><h6 id="Awesome-Tool-for-Papers"><a href="#Awesome-Tool-for-Papers" class="headerlink" title="Awesome Tool for Papers"></a>Awesome Tool for Papers</h6><ol>
-<li><p><strong>Sci-hub</strong>: <a href="https://www.sci-hub.ren/">https://www.sci-hub.ren/</a></p>
-</li>
-<li><p><strong>SPIS</strong> (&gt;=SCi-hub): <a href="http://spis.hnlat.com/">http://spis.hnlat.com/</a></p>
-</li>
-<li><p><strong>ResearchGate</strong>: <a href="https://www.researchgate.net/">https://www.researchgate.net/</a></p>
-</li>
-<li><p><strong>Google Scholar</strong>: <a href="https://scholar.google.com/">https://scholar.google.com/</a></p>
-</li>
-<li><p><strong>Arxiv:</strong> <a href="https://arxiv.org/">https://arxiv.org/</a></p>
-</li>
-<li><p><strong>DBLP:</strong> <a href="https://dblp.uni-trier.de/">https://dblp.uni-trier.de/</a></p>
-</li>
-</ol>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>聚类</category>
-        <category>论文</category>
-        <category>机器学习</category>
-        <category>CV</category>
-      </categories>
-      <tags>
-        <tag>论文</tag>
-        <tag>聚类</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>阅读笔记210128：Double Self-weighted Multi-view Clustering via Adaptive View Fusion</title>
     <url>/2021/04/06/%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0210128%EF%BC%9ADouble%20Self-weighted%20Multi-view%20Clustering%20via%20Adaptive%20View%20Fusion/</url>
     <content><![CDATA[<p><strong>总结：采用两步权重，即考虑了不同特征、不同视图对聚类的影响，通过权值自适应调整来聚合各种特征、不同视图，结果在3 Sources、ORL、BBC三个数据集上较AWP提升5%以上。# 总结：采用两步权重，即考虑了不同特征、不同视图对聚类的影响，通过权值自适应调整来聚合各种特征、不同视图，结果在3 Sources、ORL、BBC三个数据集上较AWP提升5%以上。</strong><br><a href="https://arxiv.org/abs/2011.10396" title="论文地址">论文地址</a><br><span id="more"></span></p>
@@ -200,6 +153,53 @@ L(\Theta)=&\left\|X-\hat{X}_{\Theta}\right\|_{F}^{2}+2 \operatorname{Tr}\left(X^
       </categories>
       <tags>
         <tag>聚类</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>URL of Some Top Conferences’ papers</title>
+    <url>/2021/08/31/URL%20of%20Some%20Top%20Conferences%E2%80%99%20papers/</url>
+    <content><![CDATA[<p>URL of Some Top Conferences’ papers (NIPS, CVPR, AAAI, IJCAI, MM…)<br><span id="more"></span></p>
+<ol>
+<li><h6 id="NIPS-1987"><a href="#NIPS-1987" class="headerlink" title="NIPS(1987-)"></a>NIPS(1987-)</h6><p><a href="https://proceedings.neurips.cc/paper/">https://proceedings.neurips.cc/paper/</a></p>
+</li>
+<li><h6 id="AAAI-1980"><a href="#AAAI-1980" class="headerlink" title="AAAI(1980-)"></a>AAAI(1980-)</h6><p><a href="https://www.aaai.org/Library/AAAI/aaai-library.php">https://www.aaai.org/Library/AAAI/aaai-library.php</a></p>
+</li>
+<li><h6 id="CVPR、ICCV、WACV、ECCV、ACCV-2013"><a href="#CVPR、ICCV、WACV、ECCV、ACCV-2013" class="headerlink" title="CVPR、ICCV、WACV、ECCV、ACCV(2013-)"></a>CVPR、ICCV、WACV、ECCV、ACCV(2013-)</h6><p><a href="https://openaccess.thecvf.com/menu">https://openaccess.thecvf.com/menu</a></p>
+</li>
+<li><h6 id="ICML、ACML、COLT-2013"><a href="#ICML、ACML、COLT-2013" class="headerlink" title="ICML、ACML、COLT(2013-)"></a>ICML、ACML、COLT(2013-)</h6><p><a href="http://proceedings.mlr.press/index.html">http://proceedings.mlr.press/index.html</a></p>
+</li>
+<li><h6 id="ICLR-2018"><a href="#ICLR-2018" class="headerlink" title="ICLR(2018-)"></a>ICLR(2018-)</h6><p><a href="https://openreview.net/group?id=ICLR.cc/{Year}/Conference">https://openreview.net/group?id=ICLR.cc/{Year}/Conference</a></p>
+</li>
+<li><h6 id="IJCAI"><a href="#IJCAI" class="headerlink" title="IJCAI"></a>IJCAI</h6><p><a href="https://www.ijcai.org/proceedings/{Year}/">https://www.ijcai.org/proceedings/{Year}/</a></p>
+</li>
+<li><h6 id="ACM-Digital-Library-MM-etc"><a href="#ACM-Digital-Library-MM-etc" class="headerlink" title="ACM Digital Library(MM, etc.)"></a>ACM Digital Library(MM, etc.)</h6><p><a href="https://dl.acm.org">https://dl.acm.org</a> .<br>If the download fails(Mostly), go to 8..</p>
+</li>
+<li><h6 id="Awesome-Tool-for-Papers"><a href="#Awesome-Tool-for-Papers" class="headerlink" title="Awesome Tool for Papers"></a>Awesome Tool for Papers</h6><ol>
+<li><p><strong>Sci-hub</strong>: <a href="https://www.sci-hub.ren/">https://www.sci-hub.ren/</a></p>
+</li>
+<li><p><strong>SPIS</strong> (&gt;=SCi-hub): <a href="http://spis.hnlat.com/">http://spis.hnlat.com/</a></p>
+</li>
+<li><p><strong>ResearchGate</strong>: <a href="https://www.researchgate.net/">https://www.researchgate.net/</a></p>
+</li>
+<li><p><strong>Google Scholar</strong>: <a href="https://scholar.google.com/">https://scholar.google.com/</a></p>
+</li>
+<li><p><strong>Arxiv:</strong> <a href="https://arxiv.org/">https://arxiv.org/</a></p>
+</li>
+<li><p><strong>DBLP:</strong> <a href="https://dblp.uni-trier.de/">https://dblp.uni-trier.de/</a></p>
+</li>
+</ol>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>聚类</category>
+        <category>论文</category>
+        <category>机器学习</category>
+        <category>CV</category>
+      </categories>
+      <tags>
+        <tag>聚类</tag>
+        <tag>论文</tag>
       </tags>
   </entry>
 </search>
